@@ -885,145 +885,144 @@
       "reviewCount": 11,
       "mealType": ["Lunch", "Side Dish"]
     },
-    [
-      {
-        "id": 27,
-        "name": "Vegetarian Black Bean Burgers",
-        "description": "Hearty, flavorful vegetarian patties made with black beans and spices, perfect for grilling or pan-frying and serving on a bun.",
-        "ingredients": [
-          "1 can (15 oz) black beans, rinsed and mashed",
-          "1/2 cup breadcrumbs",
-          "1/4 cup finely chopped onion",
-          "2 tablespoons ketchup",
-          "1 tablespoon chili powder",
-          "1 large egg",
-          "4 burger buns",
-          "Lettuce, tomato, and condiments for topping"
-        ],
-        "instructions": [
-          "In a large bowl, combine mashed black beans, breadcrumbs, onion, ketchup, chili powder, and egg.",
-          "Mix well and form into four patties.",
-          "Heat a skillet over medium heat with a little oil.",
-          "Cook patties for 5-7 minutes per side, until heated through and browned.",
-          "Serve on buns with your favorite toppings."
-        ],
-        "prepTimeMinutes": 15,
-        "cookTimeMinutes": 15,
-        "servings": 4,
-        "difficulty": "Medium",
-        "cuisine": "American",
-        "caloriesPerServing": 380,
-        "tags": ["Vegetarian", "Burgers", "Beans", "Dinner"],
-        "userId": 2,
-        "image": "https://cdn.dummyjson.com/recipe-images/27.webp",
-        "rating": 4.4,
-        "reviewCount": 9,
-        "mealType": ["Dinner", "Lunch"]
-      },
-      {
-        "id": 28,
-        "name": "Shepherd's Pie (Lamb)",
-        "description": "A classic British comfort dish featuring savory ground lamb and vegetables simmered in gravy, topped with a layer of creamy mashed potatoes.",
-        "ingredients": [
-          "1.5 lb ground lamb",
-          "1 large onion, chopped",
-          "2 carrots, chopped",
-          "1 cup beef broth",
-          "1 tablespoon tomato paste",
-          "1 teaspoon dried rosemary",
-          "3 large potatoes, peeled and mashed",
-          "1/2 cup milk and 2 tbsp butter for mash"
-        ],
-        "instructions": [
-          "Preheat oven to 375°F (190°C).",
-          "Cook lamb in a skillet; drain fat. Add onion and carrots and cook until soft.",
-          "Stir in tomato paste, beef broth, and rosemary. Simmer for 10 minutes until liquid reduces slightly.",
-          "Pour the meat mixture into a casserole dish.",
-          "Top evenly with mashed potatoes.",
-          "Bake for 20-25 minutes, or until the top is golden brown and the filling is bubbly."
-        ],
-        "prepTimeMinutes": 25,
-        "cookTimeMinutes": 30,
-        "servings": 6,
-        "difficulty": "Medium",
-        "cuisine": "British",
-        "caloriesPerServing": 510,
-        "tags": ["Lamb", "Pie", "Comfort food", "Dinner"],
-        "userId": 80,
-        "image": "https://cdn.dummyjson.com/recipe-images/28.webp",
-        "rating": 4.6,
-        "reviewCount": 14,
-        "mealType": ["Dinner"]
-      },
-      {
-        "id": 29,
-        "name": "Quick Garlic Noodles",
-        "description": "A simple, ultra-fast Asian-fusion dish featuring noodles tossed in a rich, buttery, and savory sauce heavily flavored with fresh garlic and soy.",
-        "ingredients": [
-          "8 oz spaghetti or egg noodles",
-          "4 tablespoons butter",
-          "4 cloves garlic, minced",
-          "2 tablespoons soy sauce",
-          "1 tablespoon oyster sauce (optional)",
-          "1/4 cup grated Parmesan cheese",
-          "Green onions, chopped, for garnish"
-        ],
-        "instructions": [
-          "Cook noodles according to package directions; drain and set aside.",
-          "In the same pot, melt butter over medium heat.",
-          "Add minced garlic and sauté for 1 minute (do not let it burn).",
-          "Stir in soy sauce and oyster sauce (if using).",
-          "Return the noodles to the pot and toss to coat.",
-          "Remove from heat, stir in Parmesan cheese, and toss until melted and creamy.",
-          "Garnish with chopped green onions and serve hot."
-        ],
-        "prepTimeMinutes": 5,
-        "cookTimeMinutes": 10,
-        "servings": 2,
-        "difficulty": "Easy",
-        "cuisine": "Asian-Fusion",
-        "caloriesPerServing": 430,
-        "tags": ["Noodles", "Quick", "Garlic", "Lunch"],
-        "userId": 16,
-        "image": "https://cdn.dummyjson.com/recipe-images/29.webp",
-        "rating": 4.5,
-        "reviewCount": 3,
-        "mealType": ["Lunch", "Dinner"]
-      },
-      {
-        "id": 30,
-        "name": "No-Bake Peanut Butter Bars",
-        "description": "An easy, irresistible dessert with a thick, sweet peanut butter and graham cracker base, topped with a smooth layer of chocolate ganache.",
-        "ingredients": [
-          "1 cup graham cracker crumbs",
-          "1/2 cup powdered sugar",
-          "1/2 cup butter, melted",
-          "1 cup peanut butter",
-          "1 cup semi-sweet chocolate chips",
-          "1 tablespoon vegetable oil"
-        ],
-        "instructions": [
-          "Line an 8x8 inch baking dish with parchment paper.",
-          "In a bowl, mix graham cracker crumbs, powdered sugar, melted butter, and peanut butter until a thick dough forms.",
-          "Press the mixture firmly into the prepared baking dish.",
-          "In a separate, microwave-safe bowl, melt the chocolate chips and vegetable oil together, stirring until smooth.",
-          "Pour the melted chocolate evenly over the peanut butter base.",
-          "Refrigerate for at least 2 hours until the chocolate layer is set.",
-          "Cut into bars before serving."
-        ],
-        "prepTimeMinutes": 15,
-        "cookTimeMinutes": 0,
-        "servings": 16,
-        "difficulty": "Easy",
-        "cuisine": "American",
-        "caloriesPerServing": 220,
-        "tags": ["Dessert", "No-bake", "Peanut butter", "Sweet"],
-        "userId": 95,
-        "image": "https://cdn.dummyjson.com/recipe-images/30.webp",
-        "rating": 4.7,
-        "reviewCount": 11,
-        "mealType": ["Dessert"]
-      }
-    ]
+
+    {
+      "id": 27,
+      "name": "Vegetarian Black Bean Burgers",
+      "description": "Hearty, flavorful vegetarian patties made with black beans and spices, perfect for grilling or pan-frying and serving on a bun.",
+      "ingredients": [
+        "1 can (15 oz) black beans, rinsed and mashed",
+        "1/2 cup breadcrumbs",
+        "1/4 cup finely chopped onion",
+        "2 tablespoons ketchup",
+        "1 tablespoon chili powder",
+        "1 large egg",
+        "4 burger buns",
+        "Lettuce, tomato, and condiments for topping"
+      ],
+      "instructions": [
+        "In a large bowl, combine mashed black beans, breadcrumbs, onion, ketchup, chili powder, and egg.",
+        "Mix well and form into four patties.",
+        "Heat a skillet over medium heat with a little oil.",
+        "Cook patties for 5-7 minutes per side, until heated through and browned.",
+        "Serve on buns with your favorite toppings."
+      ],
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 15,
+      "servings": 4,
+      "difficulty": "Medium",
+      "cuisine": "American",
+      "caloriesPerServing": 380,
+      "tags": ["Vegetarian", "Burgers", "Beans", "Dinner"],
+      "userId": 2,
+      "image": "https://cdn.dummyjson.com/recipe-images/27.webp",
+      "rating": 4.4,
+      "reviewCount": 9,
+      "mealType": ["Dinner", "Lunch"]
+    },
+    {
+      "id": 28,
+      "name": "Shepherd's Pie (Lamb)",
+      "description": "A classic British comfort dish featuring savory ground lamb and vegetables simmered in gravy, topped with a layer of creamy mashed potatoes.",
+      "ingredients": [
+        "1.5 lb ground lamb",
+        "1 large onion, chopped",
+        "2 carrots, chopped",
+        "1 cup beef broth",
+        "1 tablespoon tomato paste",
+        "1 teaspoon dried rosemary",
+        "3 large potatoes, peeled and mashed",
+        "1/2 cup milk and 2 tbsp butter for mash"
+      ],
+      "instructions": [
+        "Preheat oven to 375°F (190°C).",
+        "Cook lamb in a skillet; drain fat. Add onion and carrots and cook until soft.",
+        "Stir in tomato paste, beef broth, and rosemary. Simmer for 10 minutes until liquid reduces slightly.",
+        "Pour the meat mixture into a casserole dish.",
+        "Top evenly with mashed potatoes.",
+        "Bake for 20-25 minutes, or until the top is golden brown and the filling is bubbly."
+      ],
+      "prepTimeMinutes": 25,
+      "cookTimeMinutes": 30,
+      "servings": 6,
+      "difficulty": "Medium",
+      "cuisine": "British",
+      "caloriesPerServing": 510,
+      "tags": ["Lamb", "Pie", "Comfort food", "Dinner"],
+      "userId": 80,
+      "image": "https://cdn.dummyjson.com/recipe-images/28.webp",
+      "rating": 4.6,
+      "reviewCount": 14,
+      "mealType": ["Dinner"]
+    },
+    {
+      "id": 29,
+      "name": "Quick Garlic Noodles",
+      "description": "A simple, ultra-fast Asian-fusion dish featuring noodles tossed in a rich, buttery, and savory sauce heavily flavored with fresh garlic and soy.",
+      "ingredients": [
+        "8 oz spaghetti or egg noodles",
+        "4 tablespoons butter",
+        "4 cloves garlic, minced",
+        "2 tablespoons soy sauce",
+        "1 tablespoon oyster sauce (optional)",
+        "1/4 cup grated Parmesan cheese",
+        "Green onions, chopped, for garnish"
+      ],
+      "instructions": [
+        "Cook noodles according to package directions; drain and set aside.",
+        "In the same pot, melt butter over medium heat.",
+        "Add minced garlic and sauté for 1 minute (do not let it burn).",
+        "Stir in soy sauce and oyster sauce (if using).",
+        "Return the noodles to the pot and toss to coat.",
+        "Remove from heat, stir in Parmesan cheese, and toss until melted and creamy.",
+        "Garnish with chopped green onions and serve hot."
+      ],
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 2,
+      "difficulty": "Easy",
+      "cuisine": "Asian-Fusion",
+      "caloriesPerServing": 430,
+      "tags": ["Noodles", "Quick", "Garlic", "Lunch"],
+      "userId": 16,
+      "image": "https://cdn.dummyjson.com/recipe-images/29.webp",
+      "rating": 4.5,
+      "reviewCount": 3,
+      "mealType": ["Lunch", "Dinner"]
+    },
+    {
+      "id": 30,
+      "name": "No-Bake Peanut Butter Bars",
+      "description": "An easy, irresistible dessert with a thick, sweet peanut butter and graham cracker base, topped with a smooth layer of chocolate ganache.",
+      "ingredients": [
+        "1 cup graham cracker crumbs",
+        "1/2 cup powdered sugar",
+        "1/2 cup butter, melted",
+        "1 cup peanut butter",
+        "1 cup semi-sweet chocolate chips",
+        "1 tablespoon vegetable oil"
+      ],
+      "instructions": [
+        "Line an 8x8 inch baking dish with parchment paper.",
+        "In a bowl, mix graham cracker crumbs, powdered sugar, melted butter, and peanut butter until a thick dough forms.",
+        "Press the mixture firmly into the prepared baking dish.",
+        "In a separate, microwave-safe bowl, melt the chocolate chips and vegetable oil together, stirring until smooth.",
+        "Pour the melted chocolate evenly over the peanut butter base.",
+        "Refrigerate for at least 2 hours until the chocolate layer is set.",
+        "Cut into bars before serving."
+      ],
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 0,
+      "servings": 16,
+      "difficulty": "Easy",
+      "cuisine": "American",
+      "caloriesPerServing": 220,
+      "tags": ["Dessert", "No-bake", "Peanut butter", "Sweet"],
+      "userId": 95,
+      "image": "https://cdn.dummyjson.com/recipe-images/30.webp",
+      "rating": 4.7,
+      "reviewCount": 11,
+      "mealType": ["Dessert"]
+    }
   ]
 }
