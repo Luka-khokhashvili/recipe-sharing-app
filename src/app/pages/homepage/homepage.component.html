@@ -1,0 +1,38 @@
+<div
+  class="mb-4 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"
+>
+  <p-card *ngFor="let recipe of recipes" class="flex flex-col h-full">
+    <!-- Header Image -->
+    <ng-template #header>
+      <div class="relative w-full h-48 overflow-hidden rounded-lg">
+        <button
+          class="pi pi-star bg-emerald-600 p-1 rounded absolute top-2 right-2 cursor-pointer"
+        ></button>
+        <img
+          [alt]="recipe.name"
+          [src]="recipe.image"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </ng-template>
+
+    <!-- Title -->
+    <ng-template #title>
+      <h3 class="text-base font-semibold text-emerald-400 truncate">
+        {{ recipe.name }}
+      </h3>
+    </ng-template>
+
+    <!-- Description -->
+    <p class="text-sm flex-1 overflow-hidden line-clamp-3">
+      {{ recipe.description }}
+    </p>
+
+    <!-- Footer Buttons -->
+    <ng-template #footer>
+      <div class="mt-2">
+        <p-button label="Details"></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>
