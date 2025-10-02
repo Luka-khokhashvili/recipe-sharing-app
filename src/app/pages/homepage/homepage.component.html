@@ -31,7 +31,10 @@
     <!-- Footer Buttons -->
     <ng-template #footer>
       <div class="mt-2">
-        <p-button label="Details"></p-button>
+        <p-button
+          label="Details"
+          [routerLink]="`recipe/${recipe.id}`"
+        ></p-button>
       </div>
     </ng-template>
   </p-card>
