@@ -14,12 +14,32 @@ import { RouterLink } from '@angular/router';
 export class HomepageComponent {
   recipes: Recipe[] = [];
 
-  constructor(private recipeService: RecipesService) {}
+  constructor(private RecipeService: RecipesService) {}
 
   ngOnInit() {
-    this.recipeService.getRecipes().subscribe((data) => {
+    this.RecipeService.getRecipes().subscribe((data) => {
       console.log('Fetched recipes:', data);
       this.recipes = data;
     });
   }
+
+  favorite = (recipe: Recipe): void => {
+    this.RecipeService.favourtieRecipeById(
+      recipe.id,
+      recipe.isFavorited
+    ).subscribe({
+      next: () => {
+        const index = this.recipes.findIndex((r) => r.id === recipe.id);
+        if (index > -1) {
+          this.recipes[index].isFavorited = !this.recipes[index].isFavorited;
+          console.log(
+            `Recipe ${recipe.id} is now favourited: ${recipe.isFavorited}`
+          );
+        }
+      },
+      error: (err) => {
+        console.error('Failed to favourite recipe:', err);
+      },
+    });
+  };
 }

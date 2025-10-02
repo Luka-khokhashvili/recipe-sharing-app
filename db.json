@@ -124,7 +124,7 @@
       "mealType": [
         "Dinner"
       ],
-      "isFavorited": true
+      "isFavorited": false
     },
     {
       "id": "4",
