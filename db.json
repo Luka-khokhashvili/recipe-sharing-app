@@ -1,7 +1,7 @@
 {
   "recipes": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Classic Margherita Pizza",
       "description": "A simple, timeless Italian pizza featuring fresh mozzarella, bright tomato sauce, and aromatic basil on a crisp crust.",
       "ingredients": [
@@ -26,15 +26,23 @@
       "difficulty": "Easy",
       "cuisine": "Italian",
       "caloriesPerServing": 300,
-      "tags": ["Pizza", "Italian", "Vegetarian"],
+      "tags": [
+        "Pizza",
+        "Italian",
+        "Vegetarian"
+      ],
       "userId": 45,
       "image": "https://cdn.dummyjson.com/recipe-images/1.webp",
       "rating": 4.6,
       "reviewCount": 3,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Authentic Beef Tacos",
       "description": "Quick and flavorful Mexican beef tacos seasoned perfectly and ready to be loaded with your favorite fresh toppings.",
       "ingredients": [
@@ -61,15 +69,24 @@
       "difficulty": "Easy",
       "cuisine": "Mexican",
       "caloriesPerServing": 350,
-      "tags": ["Tacos", "Beef", "Mexican", "Dinner"],
+      "tags": [
+        "Tacos",
+        "Beef",
+        "Mexican",
+        "Dinner"
+      ],
       "userId": 12,
       "image": "https://cdn.dummyjson.com/recipe-images/2.webp",
       "rating": 4.8,
       "reviewCount": 8,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Spicy Thai Green Curry with Chicken",
       "description": "An aromatic Thai classic featuring tender chicken and crisp vegetables simmered in a creamy, spicy green coconut milk sauce.",
       "ingredients": [
@@ -94,15 +111,23 @@
       "difficulty": "Medium",
       "cuisine": "Thai",
       "caloriesPerServing": 420,
-      "tags": ["Curry", "Chicken", "Thai", "Dinner"],
+      "tags": [
+        "Curry",
+        "Chicken",
+        "Thai",
+        "Dinner"
+      ],
       "userId": 7,
       "image": "https://cdn.dummyjson.com/recipe-images/3.webp",
       "rating": 4.5,
       "reviewCount": 14,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": true
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Lemon Garlic Butter Salmon",
       "description": "Flaky, tender salmon baked to perfection with a bright, savory sauce of lemon, garlic, and melted butter.",
       "ingredients": [
@@ -128,15 +153,24 @@
       "difficulty": "Easy",
       "cuisine": "Mediterranean",
       "caloriesPerServing": 450,
-      "tags": ["Salmon", "Fish", "Healthy", "Dinner"],
+      "tags": [
+        "Salmon",
+        "Fish",
+        "Healthy",
+        "Dinner"
+      ],
       "userId": 63,
       "image": "https://cdn.dummyjson.com/recipe-images/4.webp",
       "rating": 4.9,
       "reviewCount": 21,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Classic French Omelette",
       "description": "A refined and quick breakfast or brunch, this simple omelette is known for its silky texture and pale, golden exterior.",
       "ingredients": [
@@ -160,15 +194,23 @@
       "difficulty": "Medium",
       "cuisine": "French",
       "caloriesPerServing": 250,
-      "tags": ["Eggs", "Breakfast", "French", "Quick"],
+      "tags": [
+        "Eggs",
+        "Breakfast",
+        "French",
+        "Quick"
+      ],
       "userId": 88,
       "image": "https://cdn.dummyjson.com/recipe-images/5.webp",
       "rating": 4.7,
       "reviewCount": 10,
-      "mealType": ["Breakfast"]
+      "mealType": [
+        "Breakfast"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Hearty Lentil Soup",
       "description": "A comforting, nutritious, and easy-to-make vegetarian soup packed with fiber and flavorful vegetables.",
       "ingredients": [
@@ -194,15 +236,24 @@
       "difficulty": "Easy",
       "cuisine": "Mediterranean",
       "caloriesPerServing": 200,
-      "tags": ["Soup", "Vegetarian", "Vegan", "Healthy"],
+      "tags": [
+        "Soup",
+        "Vegetarian",
+        "Vegan",
+        "Healthy"
+      ],
       "userId": 19,
       "image": "https://cdn.dummyjson.com/recipe-images/6.webp",
       "rating": 4.4,
       "reviewCount": 5,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Chocolate Chip Cookies",
       "description": "The quintessential American treat: soft centers, chewy edges, and plenty of melted chocolate chips in every bite.",
       "ingredients": [
@@ -233,15 +284,22 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 150,
-      "tags": ["Dessert", "Baking", "Classic"],
+      "tags": [
+        "Dessert",
+        "Baking",
+        "Classic"
+      ],
       "userId": 92,
       "image": "https://cdn.dummyjson.com/recipe-images/7.webp",
       "rating": 4.9,
       "reviewCount": 35,
-      "mealType": ["Dessert"]
+      "mealType": [
+        "Dessert"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Chicken and Vegetable Stir-Fry",
       "description": "A quick, customizable, and healthy weeknight dinner featuring lean chicken and crisp vegetables in a savory sauce.",
       "ingredients": [
@@ -268,15 +326,24 @@
       "difficulty": "Easy",
       "cuisine": "Asian",
       "caloriesPerServing": 380,
-      "tags": ["Chicken", "Stir-fry", "Quick", "Dinner"],
+      "tags": [
+        "Chicken",
+        "Stir-fry",
+        "Quick",
+        "Dinner"
+      ],
       "userId": 51,
       "image": "https://cdn.dummyjson.com/recipe-images/8.webp",
       "rating": 4.3,
       "reviewCount": 18,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Pancakes with Maple Syrup",
       "description": "Fluffy, classic American pancakes that are easy to make and perfect for a sweet and comforting breakfast.",
       "ingredients": [
@@ -305,15 +372,22 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 320,
-      "tags": ["Breakfast", "Sweet", "Classic"],
+      "tags": [
+        "Breakfast",
+        "Sweet",
+        "Classic"
+      ],
       "userId": 22,
       "image": "https://cdn.dummyjson.com/recipe-images/9.webp",
       "rating": 4.5,
       "reviewCount": 11,
-      "mealType": ["Breakfast"]
+      "mealType": [
+        "Breakfast"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "Caprese Salad with Balsamic Glaze",
       "description": "A light and refreshing Italian salad featuring fresh mozzarella, ripe tomatoes, basil, and a sweet, tangy balsamic reduction.",
       "ingredients": [
@@ -337,15 +411,24 @@
       "difficulty": "Easy",
       "cuisine": "Italian",
       "caloriesPerServing": 210,
-      "tags": ["Salad", "Appetizer", "Vegetarian", "Quick"],
+      "tags": [
+        "Salad",
+        "Appetizer",
+        "Vegetarian",
+        "Quick"
+      ],
       "userId": 5,
       "image": "https://cdn.dummyjson.com/recipe-images/10.webp",
       "rating": 4.7,
       "reviewCount": 6,
-      "mealType": ["Lunch", "Snack"]
+      "mealType": [
+        "Lunch",
+        "Snack"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "One-Pan Sausage and Peppers",
       "description": "A simple, minimal-cleanup meal featuring hearty Italian sausage roasted with tender, colorful bell peppers and onions.",
       "ingredients": [
@@ -369,15 +452,23 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 550,
-      "tags": ["Sausage", "One-pan", "Dinner", "Quick"],
+      "tags": [
+        "Sausage",
+        "One-pan",
+        "Dinner",
+        "Quick"
+      ],
       "userId": 18,
       "image": "https://cdn.dummyjson.com/recipe-images/11.webp",
       "rating": 4.4,
       "reviewCount": 12,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Pad Thai with Shrimp",
       "description": "The quintessential Thai street food: stir-fried rice noodles tossed in a signature sweet, sour, and savory sauce with tender shrimp.",
       "ingredients": [
@@ -404,15 +495,24 @@
       "difficulty": "Medium",
       "cuisine": "Thai",
       "caloriesPerServing": 600,
-      "tags": ["Noodles", "Shrimp", "Thai", "Dinner"],
+      "tags": [
+        "Noodles",
+        "Shrimp",
+        "Thai",
+        "Dinner"
+      ],
       "userId": 84,
       "image": "https://cdn.dummyjson.com/recipe-images/12.webp",
       "rating": 4.6,
       "reviewCount": 9,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Overnight Oats",
       "description": "A simple, no-cook breakfast made by soaking oats in milk and mix-ins overnight, perfect for grab-and-go mornings.",
       "ingredients": [
@@ -436,15 +536,23 @@
       "difficulty": "Easy",
       "cuisine": "Healthy",
       "caloriesPerServing": 320,
-      "tags": ["Breakfast", "Healthy", "Quick", "No-cook"],
+      "tags": [
+        "Breakfast",
+        "Healthy",
+        "Quick",
+        "No-cook"
+      ],
       "userId": 30,
       "image": "https://cdn.dummyjson.com/recipe-images/13.webp",
       "rating": 4.8,
       "reviewCount": 15,
-      "mealType": ["Breakfast"]
+      "mealType": [
+        "Breakfast"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Classic Beef Chili",
       "description": "A hearty, thick American-style chili with ground beef, beans, and a rich, spicy tomato base, perfect for a cold day.",
       "ingredients": [
@@ -471,15 +579,23 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 390,
-      "tags": ["Chili", "Beef", "Comfort food", "Dinner"],
+      "tags": [
+        "Chili",
+        "Beef",
+        "Comfort food",
+        "Dinner"
+      ],
       "userId": 77,
       "image": "https://cdn.dummyjson.com/recipe-images/14.webp",
       "rating": 4.5,
       "reviewCount": 17,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "Hummus with Pita Bread",
       "description": "A smooth, creamy Middle Eastern dip made from blended chickpeas, tahini, lemon juice, and garlic, served with warm pita.",
       "ingredients": [
@@ -504,15 +620,24 @@
       "difficulty": "Easy",
       "cuisine": "Middle Eastern",
       "caloriesPerServing": 280,
-      "tags": ["Dip", "Appetizer", "Vegan", "Quick"],
+      "tags": [
+        "Dip",
+        "Appetizer",
+        "Vegan",
+        "Quick"
+      ],
       "userId": 3,
       "image": "https://cdn.dummyjson.com/recipe-images/15.webp",
       "rating": 4.7,
       "reviewCount": 10,
-      "mealType": ["Snack", "Appetizer"]
+      "mealType": [
+        "Snack",
+        "Appetizer"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Spaghetti Carbonara",
       "description": "A classic Roman pasta dish made with a rich, creamy sauce of eggs, Pecorino cheese, guanciale (or pancetta), and black pepper.",
       "ingredients": [
@@ -536,15 +661,23 @@
       "difficulty": "Medium",
       "cuisine": "Italian",
       "caloriesPerServing": 750,
-      "tags": ["Pasta", "Pork", "Italian", "Dinner"],
+      "tags": [
+        "Pasta",
+        "Pork",
+        "Italian",
+        "Dinner"
+      ],
       "userId": 60,
       "image": "https://cdn.dummyjson.com/recipe-images/16.webp",
       "rating": 4.9,
       "reviewCount": 25,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Banana Bread",
       "description": "A moist, sweet, and comforting quick bread, perfect for using up overripe bananas for a snack or breakfast treat.",
       "ingredients": [
@@ -573,15 +706,24 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 280,
-      "tags": ["Baking", "Snack", "Dessert"],
+      "tags": [
+        "Baking",
+        "Snack",
+        "Dessert"
+      ],
       "userId": 10,
       "image": "https://cdn.dummyjson.com/recipe-images/17.webp",
       "rating": 4.7,
       "reviewCount": 19,
-      "mealType": ["Breakfast", "Snack", "Dessert"]
+      "mealType": [
+        "Breakfast",
+        "Snack",
+        "Dessert"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Chicken Tikka Masala",
       "description": "Tender pieces of chicken marinated in yogurt and spices, then simmered in a rich, creamy tomato-based sauce.",
       "ingredients": [
@@ -609,15 +751,23 @@
       "difficulty": "Medium",
       "cuisine": "Indian",
       "caloriesPerServing": 520,
-      "tags": ["Chicken", "Curry", "Indian", "Dinner"],
+      "tags": [
+        "Chicken",
+        "Curry",
+        "Indian",
+        "Dinner"
+      ],
       "userId": 42,
       "image": "https://cdn.dummyjson.com/recipe-images/18.webp",
       "rating": 4.8,
       "reviewCount": 30,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 19,
+      "id": "19",
       "name": "Simple Tomato Soup",
       "description": "A velvety, classic tomato soup with minimal ingredients, perfect on its own or paired with a grilled cheese sandwich.",
       "ingredients": [
@@ -644,15 +794,23 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 180,
-      "tags": ["Soup", "Vegetarian", "Comfort food"],
+      "tags": [
+        "Soup",
+        "Vegetarian",
+        "Comfort food"
+      ],
       "userId": 1,
       "image": "https://cdn.dummyjson.com/recipe-images/19.webp",
       "rating": 4.5,
       "reviewCount": 7,
-      "mealType": ["Lunch", "Dinner"]
+      "mealType": [
+        "Lunch",
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Avocado Toast with Everything Bagel Seasoning",
       "description": "A quick, satisfying, and modern classic featuring creamy mashed avocado on toast, topped with savory, crunchy seasoning.",
       "ingredients": [
@@ -675,15 +833,24 @@
       "difficulty": "Easy",
       "cuisine": "Contemporary",
       "caloriesPerServing": 300,
-      "tags": ["Breakfast", "Quick", "Healthy", "Vegetarian"],
+      "tags": [
+        "Breakfast",
+        "Quick",
+        "Healthy",
+        "Vegetarian"
+      ],
       "userId": 9,
       "image": "https://cdn.dummyjson.com/recipe-images/20.webp",
       "rating": 4.6,
       "reviewCount": 4,
-      "mealType": ["Breakfast", "Snack"]
+      "mealType": [
+        "Breakfast",
+        "Snack"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 21,
+      "id": "21",
       "name": "Baked Feta Pasta (TikTok Trend)",
       "description": "The viral one-pan pasta where a block of feta and cherry tomatoes are baked until melty, then tossed with hot pasta.",
       "ingredients": [
@@ -710,15 +877,23 @@
       "difficulty": "Easy",
       "cuisine": "Mediterranean",
       "caloriesPerServing": 580,
-      "tags": ["Pasta", "Feta", "Vegetarian", "Dinner"],
+      "tags": [
+        "Pasta",
+        "Feta",
+        "Vegetarian",
+        "Dinner"
+      ],
       "userId": 25,
       "image": "https://cdn.dummyjson.com/recipe-images/21.webp",
       "rating": 4.7,
       "reviewCount": 15,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 22,
+      "id": "22",
       "name": "Homemade Guacamole",
       "description": "A fresh, zesty, and simple dip made from mashed avocado, lime juice, red onion, and cilantro, perfect with tortilla chips.",
       "ingredients": [
@@ -743,15 +918,24 @@
       "difficulty": "Easy",
       "cuisine": "Mexican",
       "caloriesPerServing": 150,
-      "tags": ["Dip", "Appetizer", "Vegan", "Quick"],
+      "tags": [
+        "Dip",
+        "Appetizer",
+        "Vegan",
+        "Quick"
+      ],
       "userId": 55,
       "image": "https://cdn.dummyjson.com/recipe-images/22.webp",
       "rating": 4.6,
       "reviewCount": 8,
-      "mealType": ["Snack", "Appetizer"]
+      "mealType": [
+        "Snack",
+        "Appetizer"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 23,
+      "id": "23",
       "name": "Roast Chicken with Root Vegetables",
       "description": "A comforting, all-in-one meal of a whole roasted chicken seasoned with lemon and herbs, surrounded by tender root vegetables.",
       "ingredients": [
@@ -777,15 +961,23 @@
       "difficulty": "Medium",
       "cuisine": "French",
       "caloriesPerServing": 480,
-      "tags": ["Chicken", "Roast", "Dinner", "Comfort food"],
+      "tags": [
+        "Chicken",
+        "Roast",
+        "Dinner",
+        "Comfort food"
+      ],
       "userId": 70,
       "image": "https://cdn.dummyjson.com/recipe-images/23.webp",
       "rating": 4.9,
       "reviewCount": 13,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 24,
+      "id": "24",
       "name": "Tuna Salad Sandwich",
       "description": "A classic, quick-to-assemble sandwich with a creamy, savory tuna salad mix of tuna, mayonnaise, and celery.",
       "ingredients": [
@@ -810,15 +1002,24 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 410,
-      "tags": ["Sandwich", "Tuna", "Quick", "Lunch"],
+      "tags": [
+        "Sandwich",
+        "Tuna",
+        "Quick",
+        "Lunch"
+      ],
       "userId": 11,
       "image": "https://cdn.dummyjson.com/recipe-images/24.webp",
       "rating": 4.3,
       "reviewCount": 2,
-      "mealType": ["Lunch", "Snack"]
+      "mealType": [
+        "Lunch",
+        "Snack"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 25,
+      "id": "25",
       "name": "Mango Sticky Rice",
       "description": "A famous Thai dessert featuring sweet, glutinous rice soaked in coconut milk, served with fresh, juicy slices of mango.",
       "ingredients": [
@@ -843,15 +1044,23 @@
       "difficulty": "Medium",
       "cuisine": "Thai",
       "caloriesPerServing": 350,
-      "tags": ["Dessert", "Sweet", "Thai", "Vegetarian"],
+      "tags": [
+        "Dessert",
+        "Sweet",
+        "Thai",
+        "Vegetarian"
+      ],
       "userId": 99,
       "image": "https://cdn.dummyjson.com/recipe-images/25.webp",
       "rating": 4.8,
       "reviewCount": 16,
-      "mealType": ["Dessert"]
+      "mealType": [
+        "Dessert"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 26,
+      "id": "26",
       "name": "Easy Greek Salad",
       "description": "A light and refreshing Mediterranean salad with tomatoes, cucumbers, olives, and feta, dressed simply with olive oil and oregano.",
       "ingredients": [
@@ -878,16 +1087,24 @@
       "difficulty": "Easy",
       "cuisine": "Greek",
       "caloriesPerServing": 250,
-      "tags": ["Salad", "Vegetarian", "Healthy", "Quick"],
+      "tags": [
+        "Salad",
+        "Vegetarian",
+        "Healthy",
+        "Quick"
+      ],
       "userId": 6,
       "image": "https://cdn.dummyjson.com/recipe-images/26.webp",
       "rating": 4.5,
       "reviewCount": 11,
-      "mealType": ["Lunch", "Side Dish"]
+      "mealType": [
+        "Lunch",
+        "Side Dish"
+      ],
+      "favourited": false
     },
-
     {
-      "id": 27,
+      "id": "27",
       "name": "Vegetarian Black Bean Burgers",
       "description": "Hearty, flavorful vegetarian patties made with black beans and spices, perfect for grilling or pan-frying and serving on a bun.",
       "ingredients": [
@@ -913,15 +1130,24 @@
       "difficulty": "Medium",
       "cuisine": "American",
       "caloriesPerServing": 380,
-      "tags": ["Vegetarian", "Burgers", "Beans", "Dinner"],
+      "tags": [
+        "Vegetarian",
+        "Burgers",
+        "Beans",
+        "Dinner"
+      ],
       "userId": 2,
       "image": "https://cdn.dummyjson.com/recipe-images/27.webp",
       "rating": 4.4,
       "reviewCount": 9,
-      "mealType": ["Dinner", "Lunch"]
+      "mealType": [
+        "Dinner",
+        "Lunch"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 28,
+      "id": "28",
       "name": "Shepherd's Pie (Lamb)",
       "description": "A classic British comfort dish featuring savory ground lamb and vegetables simmered in gravy, topped with a layer of creamy mashed potatoes.",
       "ingredients": [
@@ -948,15 +1174,23 @@
       "difficulty": "Medium",
       "cuisine": "British",
       "caloriesPerServing": 510,
-      "tags": ["Lamb", "Pie", "Comfort food", "Dinner"],
+      "tags": [
+        "Lamb",
+        "Pie",
+        "Comfort food",
+        "Dinner"
+      ],
       "userId": 80,
       "image": "https://cdn.dummyjson.com/recipe-images/28.webp",
       "rating": 4.6,
       "reviewCount": 14,
-      "mealType": ["Dinner"]
+      "mealType": [
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 29,
+      "id": "29",
       "name": "Quick Garlic Noodles",
       "description": "A simple, ultra-fast Asian-fusion dish featuring noodles tossed in a rich, buttery, and savory sauce heavily flavored with fresh garlic and soy.",
       "ingredients": [
@@ -983,15 +1217,24 @@
       "difficulty": "Easy",
       "cuisine": "Asian-Fusion",
       "caloriesPerServing": 430,
-      "tags": ["Noodles", "Quick", "Garlic", "Lunch"],
+      "tags": [
+        "Noodles",
+        "Quick",
+        "Garlic",
+        "Lunch"
+      ],
       "userId": 16,
       "image": "https://cdn.dummyjson.com/recipe-images/29.webp",
       "rating": 4.5,
       "reviewCount": 3,
-      "mealType": ["Lunch", "Dinner"]
+      "mealType": [
+        "Lunch",
+        "Dinner"
+      ],
+      "isFavorited": false
     },
     {
-      "id": 30,
+      "id": "30",
       "name": "No-Bake Peanut Butter Bars",
       "description": "An easy, irresistible dessert with a thick, sweet peanut butter and graham cracker base, topped with a smooth layer of chocolate ganache.",
       "ingredients": [
@@ -1017,12 +1260,20 @@
       "difficulty": "Easy",
       "cuisine": "American",
       "caloriesPerServing": 220,
-      "tags": ["Dessert", "No-bake", "Peanut butter", "Sweet"],
+      "tags": [
+        "Dessert",
+        "No-bake",
+        "Peanut butter",
+        "Sweet"
+      ],
       "userId": 95,
       "image": "https://cdn.dummyjson.com/recipe-images/30.webp",
       "rating": 4.7,
       "reviewCount": 11,
-      "mealType": ["Dessert"]
+      "mealType": [
+        "Dessert"
+      ],
+      "isFavorited": false
     }
   ]
 }

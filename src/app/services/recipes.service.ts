@@ -18,4 +18,15 @@ export class RecipesService {
   getRecipeById(id: number): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
+
+  favourtieRecipeById(
+    id: number,
+    currentState: boolean | undefined
+  ): Observable<Recipe> {
+    const newState = !currentState;
+
+    const payload = { isFavorited: newState };
+
+    return this.http.patch<Recipe>(`${this.apiUrl}/${id}`, payload);
+  }
 }

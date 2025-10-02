@@ -54,4 +54,21 @@ export class RecipeDetailsComponent {
       });
     }
   }
+
+  favorite = () => {
+    this.RecipeService.favourtieRecipeById(
+      this.recipeId,
+      this.recipe?.isFavorited
+    ).subscribe({
+      next: (updatedRecipe) => {
+        this.recipe = updatedRecipe;
+        console.log(
+          `Recipe ${updatedRecipe.id} is now favourited: ${updatedRecipe.isFavorited}`
+        );
+      },
+      error: (err) => {
+        console.error('Failed to favourite recipe:', err);
+      },
+    });
+  };
 }

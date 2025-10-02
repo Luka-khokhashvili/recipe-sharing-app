@@ -45,7 +45,11 @@
         </div>
 
         <div class="flex gap-4 mt-6">
-          <p-button label="Favourite Recipe" icon="pi pi-star"></p-button>
+          <p-button
+            [label]="`${recipe?.isFavorited ? 'Favorited' : 'Favorite'}`"
+            [icon]="`pi ${recipe?.isFavorited ? 'pi-star-fill' : 'pi-star'}`"
+            (onClick)="favorite()"
+          ></p-button>
         </div>
       </div>
     </div>
