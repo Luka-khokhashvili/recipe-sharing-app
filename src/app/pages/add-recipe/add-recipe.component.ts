@@ -40,7 +40,8 @@ export class AddRecipeComponent {
       instructions: this.fb.array([this.fb.control('', Validators.required)]),
       prepTimeMinutes: ['', [Validators.required]],
       cookTimeMinutes: ['', [Validators.required]],
-      servings: [0, [Validators.required]],
+      servings: ['', [Validators.required]],
+      caloriesPerServing: ['', [Validators.required]],
       difficulty: ['', [Validators.required]],
       cuisine: ['', [Validators.required]],
       tags: this.fb.array([this.fb.control('', Validators.required)]),
@@ -105,6 +106,10 @@ export class AddRecipeComponent {
         this.recipeForm.patchValue({ image: reader.result });
       reader.readAsDataURL(file);
     }
+  }
+
+  removeImage() {
+    this.recipeForm.get('image')?.setValue(null);
   }
 
   submit() {
