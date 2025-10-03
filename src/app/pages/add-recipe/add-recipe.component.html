@@ -1,0 +1,141 @@
+<div class="p-6 max-w-3xl mx-auto bg-zinc-900 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-emerald-400 mb-6">Add New Recipe</h2>
+
+  <form
+    [formGroup]="recipeForm"
+    (ngSubmit)="submit()"
+    class="flex flex-col gap-6"
+  >
+    <!-- Name -->
+    <div>
+      <label class="block mb-2 font-semibold">Title</label>
+      <input
+        pInputText
+        type="text"
+        formControlName="name"
+        class="w-full"
+        placeholder="Recipe name"
+      />
+      <small
+        *ngIf="
+          recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched
+        "
+        class="text-red-400"
+      >
+        Title is required (min 3 characters).
+      </small>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block mb-2 font-semibold">Description</label>
+      <textarea
+        pInputTextarea
+        rows="4"
+        formControlName="description"
+        placeholder="Describe your recipe"
+        class="w-full"
+      ></textarea>
+      <small
+        *ngIf="
+          recipeForm.get('description')?.invalid &&
+          recipeForm.get('description')?.touched
+        "
+        class="text-red-400"
+      >
+        Description must be at least 10 characters long.
+      </small>
+    </div>
+
+    <!-- Ingredients -->
+    <div formArrayName="ingredients">
+      <label class="block mb-2 font-semibold">
+        <p class="pi pi-shopping-bag"></p>
+        Ingredients</label
+      >
+      <div
+        *ngFor="let ing of ingredients.controls; let i = index"
+        class="flex gap-2 mb-2"
+      >
+        <input
+          pInputText
+          [formControlName]="i"
+          placeholder="Ingredient"
+          class="flex-1"
+        />
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          severity="danger"
+          (click)="removeIngredient(i)"
+        ></button>
+      </div>
+      <button
+        pButton
+        type="button"
+        label="Add Ingredient"
+        icon="pi pi-plus"
+        (click)="addIngredient()"
+      ></button>
+    </div>
+
+    <!-- Instructions -->
+    <div formArrayName="instructions">
+      <label class="block mb-2 font-semibold">
+        <p class="pi pi-list-check"></p>
+        Instructions</label
+      >
+      <div
+        *ngFor="let step of instructions.controls; let i = index"
+        class="flex gap-2 mb-2"
+      >
+        <input
+          pInputText
+          [formControlName]="i"
+          placeholder="Step instruction"
+          class="flex-1"
+        />
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          severity="danger"
+          (click)="removeInstruction(i)"
+        ></button>
+      </div>
+      <button
+        pButton
+        type="button"
+        label="Add Step"
+        icon="pi pi-plus"
+        (click)="addInstruction()"
+      ></button>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label class="block mb-2 font-semibold">
+        <p class="pi pi-image"></p>
+        Thumbnail Image</label
+      >
+      <p-fileUpload
+        mode="basic"
+        name="image"
+        [auto]="true"
+        customUpload="true"
+        (uploadHandler)="onImageUpload($event)"
+        chooseLabel="Choose"
+      ></p-fileUpload>
+      <img
+        *ngIf="recipeForm.value.image"
+        [src]="recipeForm.value.image"
+        alt="Preview"
+        class="mt-3 w-48 rounded-md shadow-md"
+      />
+    </div>
+
+    <!-- Submit -->
+    <button pButton type="submit" label="Submit Recipe" class="mt-4"></button>
+  </form>
+</div>
