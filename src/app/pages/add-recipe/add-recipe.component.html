@@ -113,6 +113,174 @@
       ></button>
     </div>
 
+    <!-- Time uploads -->
+    <div class="grid grid-cols-2 gap-4 w-full">
+      <div>
+        <label class="block mb-2 font-semibold">
+          <p class="pi pi-clock"></p>
+          Prep time (minutes)</label
+        >
+        <input
+          pInputText
+          type="number"
+          formControlName="prepTimeMinutes"
+          class="w-full"
+          placeholder="Minutes"
+        />
+        <small
+          *ngIf="
+            recipeForm.get('prepTimeMinutes')?.invalid &&
+            recipeForm.get('prepTimeMinutes')?.touched
+          "
+          class="text-red-400"
+        >
+          Prep time is required
+        </small>
+      </div>
+      <div>
+        <label class="block mb-2 font-semibold">
+          <p class="pi pi-chevron-circle-left"></p>
+          Cook time</label
+        >
+        <input
+          pInputText
+          type="text"
+          formControlName="cookTimeMinutes"
+          class="w-full"
+          placeholder="Minutes"
+        />
+        <small
+          *ngIf="
+            recipeForm.get('cookTimeMinutes')?.invalid &&
+            recipeForm.get('cookTimeMinutes')?.touched
+          "
+          class="text-red-400"
+        >
+          Cook time is required
+        </small>
+      </div>
+    </div>
+
+    <!-- Servings -->
+     <div class="grid grid-cols-2 gap-4 w-full">
+      <div>
+        <label class="block mb-2 font-semibold">
+          <p class="pi pi-clock"></p>
+          Prep time (minutes)</label
+        >
+        <input
+          pInputText
+          type="number"
+          formControlName="prepTimeMinutes"
+          class="w-full"
+          placeholder="Minutes"
+        />
+        <small
+          *ngIf="
+            recipeForm.get('prepTimeMinutes')?.invalid &&
+            recipeForm.get('prepTimeMinutes')?.touched
+          "
+          class="text-red-400"
+        >
+          Prep time is required
+        </small>
+      </div>
+      <div>
+        <label class="block mb-2 font-semibold">
+          <p class="pi pi-chevron-circle-left"></p>
+          Cook time</label
+        >
+        <input
+          pInputText
+          type="text"
+          formControlName="cookTimeMinutes"
+          class="w-full"
+          placeholder="Minutes"
+        />
+        <small
+          *ngIf="
+            recipeForm.get('cookTimeMinutes')?.invalid &&
+            recipeForm.get('cookTimeMinutes')?.touched
+          "
+          class="text-red-400"
+        >
+          Cook time is required
+        </small>
+      </div>
+    </div>
+
+    <!-- difficulty -->
+
+    <!-- cuisin -->
+
+    <!-- CaloriesPerServing -->
+
+    <!-- tags -->
+    <div formArrayName="tags">
+      <label class="block mb-2 font-semibold">
+        <p class="pi pi-tags"></p>
+        Tags</label
+      >
+      <div
+        *ngFor="let tag of tags.controls; let i = index"
+        class="flex gap-2 mb-2"
+      >
+        <input
+          pInputText
+          [formControlName]="i"
+          placeholder="Tag"
+          class="flex-1"
+        />
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          severity="danger"
+          (click)="removeTag(i)"
+        ></button>
+      </div>
+      <button
+        pButton
+        type="button"
+        label="Add tag"
+        icon="pi pi-plus"
+        (click)="addTag()"
+      ></button>
+    </div>
+
+    <!-- mealType -->
+    <div formArrayName="mealType">
+      <label class="block mb-2 font-semibold">
+        <p class="pi pi-th-large"></p>
+        Meal type</label
+      >
+      <div
+        *ngFor="let type of mealType.controls; let i = index"
+        class="flex gap-2 mb-2"
+      >
+        <input
+          pInputText
+          [formControlName]="i"
+          placeholder="Type"
+          class="flex-1"
+        />
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          severity="danger"
+          (click)="removeMealType(i)"
+        ></button>
+      </div>
+      <button
+        pButton
+        type="button"
+        label="Add type"
+        icon="pi pi-plus"
+        (click)="addMealType()"
+      ></button>
+    </div>
+
     <!-- Image Upload -->
     <div>
       <label class="block mb-2 font-semibold">

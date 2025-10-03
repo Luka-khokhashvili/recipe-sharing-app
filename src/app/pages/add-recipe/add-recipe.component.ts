@@ -38,7 +38,14 @@ export class AddRecipeComponent {
       description: ['', [Validators.required, Validators.minLength(10)]],
       ingredients: this.fb.array([this.fb.control('', Validators.required)]),
       instructions: this.fb.array([this.fb.control('', Validators.required)]),
+      prepTimeMinutes: ['', [Validators.required]],
+      cookTimeMinutes: ['', [Validators.required]],
+      servings: [0, [Validators.required]],
+      difficulty: ['', [Validators.required]],
+      cuisine: ['', [Validators.required]],
+      tags: this.fb.array([this.fb.control('', Validators.required)]),
       image: [null, Validators.required],
+      mealType: this.fb.array([this.fb.control('', Validators.required)]),
     });
   }
 
@@ -48,6 +55,14 @@ export class AddRecipeComponent {
 
   get instructions() {
     return this.recipeForm.get('instructions') as FormArray;
+  }
+
+  get tags() {
+    return this.recipeForm.get('tags') as FormArray;
+  }
+
+  get mealType() {
+    return this.recipeForm.get('mealType') as FormArray;
   }
 
   addIngredient() {
@@ -64,6 +79,22 @@ export class AddRecipeComponent {
 
   removeInstruction(index: number) {
     this.instructions.removeAt(index);
+  }
+
+  addTag() {
+    this.tags.push(this.fb.control('', Validators.required));
+  }
+
+  removeTag(index: number) {
+    this.tags.removeAt(index);
+  }
+
+  addMealType() {
+    this.mealType.push(this.fb.control('', Validators.required));
+  }
+
+  removeMealType(index: number) {
+    this.mealType.removeAt(index);
   }
 
   onImageUpload(event: any) {
