@@ -25,7 +25,7 @@ export class HomepageComponent {
 
   favorite = (recipe: Recipe): void => {
     this.RecipeService.favourtieRecipeById(
-      recipe.id,
+      String(recipe.id),
       recipe.isFavorited
     ).subscribe({
       next: () => {

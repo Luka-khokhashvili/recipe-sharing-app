@@ -13,6 +13,8 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
+import { RecipesService } from '../../services/recipes.service';
+import { NewRecipeFormData } from '../../interfaces/recipe';
 
 @Component({
   selector: 'app-add-recipe',
@@ -32,7 +34,7 @@ import { DividerModule } from 'primeng/divider';
 export class AddRecipeComponent {
   recipeForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private RecipeService: RecipesService, private fb: FormBuilder) {
     this.recipeForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
@@ -114,9 +116,21 @@ export class AddRecipeComponent {
 
   submit() {
     if (this.recipeForm.valid) {
-      console.log('Recipe submitted:', this.recipeForm.value);
-      // TODO: send to RecipeService (POST to JSON server)
+      const recipeData = this.recipeForm.value as NewRecipeFormData;
+
+      this.RecipeService.postRecipe(recipeData).subscribe({
+        next: (newRecipe) => {
+          console.log('Recipe added successfully:', newRecipe);
+          // TODO: Add success notification (e.g., PrimeNG MessageService)
+          // TODO: Navigate the user away, e.g., to the new recipe page or the list page
+        },
+        error: (err) => {
+          console.error('Error adding recipe:', err);
+          // TODO: Add error notification
+        },
+      });
     } else {
+      console.log('Form is invalid. Cannot submit.');
       this.recipeForm.markAllAsTouched();
     }
   }

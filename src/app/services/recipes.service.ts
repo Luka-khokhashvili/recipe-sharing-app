@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Recipe } from '../interfaces/recipe';
+import { NewRecipeFormData, Recipe } from '../interfaces/recipe';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +15,12 @@ export class RecipesService {
     return this.http.get<Recipe[]>(this.apiUrl);
   }
 
-  getRecipeById(id: number): Observable<Recipe> {
+  getRecipeById(id: string): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
   favourtieRecipeById(
-    id: number,
+    id: string,
     currentState: boolean | undefined
   ): Observable<Recipe> {
     const newState = !currentState;
@@ -28,5 +28,27 @@ export class RecipesService {
     const payload = { isFavorited: newState };
 
     return this.http.patch<Recipe>(`${this.apiUrl}/${id}`, payload);
+  }
+
+  postRecipe(newRecipeData: NewRecipeFormData): Observable<Recipe> {
+    const newRecipe: Omit<Recipe, 'id'> = {
+      ...newRecipeData,
+      userId: 1,
+      rating: 0,
+      reviewCount: 0,
+      isFavorited: false,
+
+      tags: newRecipeData.tags || [],
+      mealType: newRecipeData.mealType || [],
+      ingredients: newRecipeData.ingredients || [],
+      instructions: newRecipeData.instructions || [],
+
+      prepTimeMinutes: newRecipeData.prepTimeMinutes || 0,
+      cookTimeMinutes: newRecipeData.cookTimeMinutes || 0,
+      servings: newRecipeData.servings || 1,
+      caloriesPerServing: newRecipeData.caloriesPerServing || 0,
+    };
+
+    return this.http.post<Recipe>(this.apiUrl, newRecipe as Recipe);
   }
 }

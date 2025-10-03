@@ -28,7 +28,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class RecipeDetailsComponent {
   recipe!: Recipe | undefined;
-  recipeId: number = 0;
+  recipeId: string = '1';
   isLoading: boolean = false;
 
   constructor(
@@ -37,7 +37,7 @@ export class RecipeDetailsComponent {
   ) {}
 
   ngOnInit() {
-    this.recipeId = Number(this.route.snapshot.paramMap.get('id'));
+    this.recipeId = this.route.snapshot.paramMap.get('id') || '1';
 
     if (this.recipeId) {
       this.isLoading = true;
