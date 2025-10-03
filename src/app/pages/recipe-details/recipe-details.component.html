@@ -8,7 +8,7 @@
       class="w-full rounded-xl shadow-md object-cover max-h-[900px]"
     />
   </div>
-  <div class="flex flex-col">
+  <div class="flex flex-col md:w-full xl:w-[49vw]">
     <div class="grid md:grid-cols-2 xl:flex xl:flex-col gap-6">
       <div class="block xl:hidden">
         <img
@@ -56,21 +56,32 @@
 
     <p-divider></p-divider>
 
-    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
       <div>
-        <h4 class="font-semibold">Prep Time</h4>
+        <h4 class="font-semibold">
+          <span class="pi pi-clock"></span>
+          Prep Time
+        </h4>
         <p>{{ recipe?.prepTimeMinutes }} min</p>
       </div>
       <div>
-        <h4 class="font-semibold">Cook Time</h4>
+        <h4 class="font-semibold">
+          <span class="pi pi-chevron-circle-left"></span>
+          Cook Time
+        </h4>
         <p>{{ recipe?.cookTimeMinutes }} min</p>
       </div>
       <div>
-        <h4 class="font-semibold">Servings</h4>
+        <h4 class="font-semibold">
+          <span class="pi pi-users"></span> Servings
+        </h4>
         <p>{{ recipe?.servings }}</p>
       </div>
       <div>
-        <h4 class="font-semibold">Calories</h4>
+        <h4 class="font-semibold">
+          <span class="pi pi-heart"></span>
+          Calories
+        </h4>
         <p>{{ recipe?.caloriesPerServing }} kcal</p>
       </div>
     </div>
@@ -78,7 +89,10 @@
     <p-divider></p-divider>
 
     <div class="mb-6 xl:mt-6">
-      <h3 class="text-xl font-bold text-emerald-400 mb-2">Ingredients</h3>
+      <h3 class="text-xl font-bold text-emerald-400 mb-2">
+        <span class="pi pi-shopping-cart"></span>
+        Ingredients
+      </h3>
       <ul class="list-disc pl-5 space-y-1 text-gray-200">
         <li *ngFor="let ingredient of recipe?.ingredients">
           {{ ingredient }}
@@ -87,9 +101,14 @@
     </div>
 
     <div>
-      <h3 class="text-xl font-bold text-emerald-400 mb-2">Instructions</h3>
+      <h3 class="text-xl font-bold text-emerald-400 mb-2">
+        <span class="pi pi-list-check"></span>
+        Instructions
+      </h3>
       <ol class="list-decimal pl-5 space-y-2 text-gray-200">
-        <li *ngFor="let step of recipe?.instructions">{{ step }}</li>
+        <li *ngFor="let step of recipe?.instructions">
+          {{ step }}
+        </li>
       </ol>
     </div>
   </div>
