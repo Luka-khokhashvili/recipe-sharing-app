@@ -1,18 +1,35 @@
-<div class="bg-zinc-900 flex w-full items-center pl-4 justify-between">
-  <a routerLink="/" class="text-2xl font-bold">Recipe dashboard</a>
-  <p-tabs value="/dashboard">
-    <p-tablist>
-      @for(tab of tabs; track tab.route){
-      <p-tab
-        [value]="tab.route"
-        [routerLink]="tab.route"
-        [ngClass]="{ 'active-tab': isActive(tab.route) }"
-        class="flex items-center !gap-2 text-inherit"
-      >
-        <i [class]="tab.icon"></i>
-        <span>{{ tab.label }}</span>
-      </p-tab>
-      }
-    </p-tablist>
-  </p-tabs>
+<div class="bg-zinc-900 flex w-full items-center justify-between p-4">
+  <a routerLink="/" class="text-2xl font-bold text-emerald-400"
+    >Recipe Dashboard</a
+  >
+
+  <div
+    *ngIf="isMobileMenuVisible"
+    class="absolute md:static top-15 right-3 rounded md:rounded-none shadow md:shadow-none flex flex-col md:flex-row items-stretch md:items-center z-10 bg-zinc-800 p-2 md:bg-transparent"
+  >
+    <p-tabs value="/homepage">
+      <p-tablist class="flex flex-col md:flex-row gap-1">
+        @for(tab of tabs; track tab.route){
+        <p-tab
+          [value]="tab.route"
+          [routerLink]="tab.route"
+          [ngClass]="{ 'active-tab': isActive(tab.route) }"
+          class="flex items-center !gap-2"
+        >
+          <i [class]="tab.icon"></i>
+          <span>{{ tab.label }}</span>
+        </p-tab>
+        }
+      </p-tablist>
+    </p-tabs>
+  </div>
+
+  <p-button
+    icon="pi pi-bars"
+    (onClick)="toggleMobileMenu()"
+    styleClass="p-button-text"
+    class="text-white md:hidden"
+    ariaLabel="Toggle menu"
+  >
+  </p-button>
 </div>

@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'primeng/tabs';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router, RouterLink } from '@angular/router';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TabsModule, RouterLink, CommonModule],
+  imports: [TabsModule, RouterLink, CommonModule, Button],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  isMobileMenuVisible: boolean = false;
+
   tabs = [
     { route: '', label: 'Dashboard', icon: 'pi pi-home' },
     { route: '/add', label: 'Add recipe', icon: 'pi pi-plus' },
@@ -24,5 +26,9 @@ export class NavbarComponent {
       return current === '/' || current === '' || current === '/';
 
     return current === tabRoute || current.startsWith(tabRoute + '/');
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuVisible = !this.isMobileMenuVisible;
   }
 }
