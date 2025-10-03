@@ -1,11 +1,10 @@
-<div class="bg-zinc-900 flex w-full items-center justify-between p-4">
+<div class="bg-zinc-900 flex w-full items-center justify-between px-4 py-4 md:py-0">
   <a routerLink="/" class="text-2xl font-bold text-emerald-400"
     >Recipe Dashboard</a
   >
 
   <div
-    *ngIf="isMobileMenuVisible"
-    class="absolute md:static top-15 right-3 rounded md:rounded-none shadow md:shadow-none flex flex-col md:flex-row items-stretch md:items-center z-10 bg-zinc-800 p-2 md:bg-transparent"
+    class="absolute md:static top-15 md:top-0 right-3 md:right-0 rounded md:rounded-none shadow md:shadow-none flex flex-col md:flex-row items-stretch md:items-center z-10 bg-zinc-800 p-2 md:bg-transparent"
   >
     <p-tabs value="/homepage">
       <p-tablist class="flex flex-col md:flex-row gap-1">
