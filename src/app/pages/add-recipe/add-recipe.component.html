@@ -4,367 +4,94 @@
 
     <form
       [formGroup]="recipeForm"
-      (ngSubmit)="add($event)"
+      (ngSubmit)="addRecipe()"
       class="flex flex-col gap-6"
     >
-      <!-- Name -->
-      <div>
-        <label class="block mb-2 font-semibold">Title</label>
-        <input
-          pInputText
-          type="text"
-          formControlName="name"
-          class="w-full"
-          placeholder="Recipe name"
-        />
-        <small
-          *ngIf="
-            recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched
-          "
-          class="text-red-400"
-        >
-          Title is required (min 3 characters)
-        </small>
+      <!-- Basic Info -->
+      <app-text-input
+        [control]="nameControl"
+        label="Title"
+        placeholder="Recipe name"
+        icon="pi pi-book"
+      ></app-text-input>
+
+      <app-textarea-input
+        [control]="descriptionControl"
+        label="Description"
+        placeholder="Describe your recipe"
+        icon="pi pi-align-left"
+      ></app-textarea-input>
+
+      <!-- Dynamic Lists -->
+      <app-ingredients-form
+        [ingredients]="ingredients"
+        (add)="addIngredient()"
+        (remove)="removeIngredient($event)"
+      ></app-ingredients-form>
+
+      <app-instructions-form
+        [instructions]="instructions"
+        (add)="addInstruction()"
+        (remove)="removeInstruction($event)"
+      ></app-instructions-form>
+
+      <app-tags-form
+        [tags]="tags"
+        (add)="addTag()"
+        (remove)="removeTag($event)"
+      />
+
+      <app-meal-type-form
+        [mealType]="mealType"
+        (add)="addMealType()"
+        (remove)="removeMealType($event)"
+      />
+
+      <!-- Times -->
+      <div class="grid grid-cols-2 gap-4">
+        <app-number-input
+          [control]="prepTimeControl"
+          label="Prep Time (minutes)"
+          icon="pi pi-clock"
+        ></app-number-input>
+
+        <app-number-input
+          [control]="cookTimeControl"
+          label="Cook Time (minutes)"
+          icon="pi pi-stopwatch"
+        ></app-number-input>
       </div>
 
-      <!-- Description -->
-      <div>
-        <label class="block mb-2 font-semibold">Description</label>
-        <textarea
-          pInputText
-          rows="4"
-          formControlName="description"
-          placeholder="Describe your recipe"
-          class="w-full"
-        ></textarea>
-        <small
-          *ngIf="
-            recipeForm.get('description')?.invalid &&
-            recipeForm.get('description')?.touched
-          "
-          class="text-red-400"
-        >
-          Description must be at least 10 characters long
-        </small>
-      </div>
-
-      <!-- Ingredients -->
-      <div formArrayName="ingredients">
-        <label class="block mb-2 font-semibold">
-          <p class="pi pi-shopping-bag"></p>
-          Ingredients</label
-        >
-        <div
-          *ngFor="let ing of ingredients.controls; let i = index"
-          class="flex gap-2 mb-2"
-        >
-          <input
-            pInputText
-            [formControlName]="i"
-            placeholder="Ingredient"
-            class="flex-1"
-          />
-          <button
-            pButton
-            type="button"
-            icon="pi pi-times"
-            severity="danger"
-            (click)="removeIngredient(i)"
-          ></button>
-        </div>
-        <button
-          pButton
-          type="button"
-          label="Add Ingredient"
-          icon="pi pi-plus"
-          (click)="addIngredient()"
-        ></button>
-      </div>
-
-      <!-- Instructions -->
-      <div formArrayName="instructions">
-        <label class="block mb-2 font-semibold">
-          <p class="pi pi-list-check"></p>
-          Instructions</label
-        >
-        <div
-          *ngFor="let step of instructions.controls; let i = index"
-          class="flex gap-2 mb-2"
-        >
-          <input
-            pInputText
-            [formControlName]="i"
-            placeholder="Step instruction"
-            class="flex-1"
-          />
-          <button
-            pButton
-            type="button"
-            icon="pi pi-times"
-            severity="danger"
-            (click)="removeInstruction(i)"
-          ></button>
-        </div>
-        <button
-          pButton
-          type="button"
-          label="Add Step"
-          icon="pi pi-plus"
-          (click)="addInstruction()"
-        ></button>
-      </div>
-
-      <!-- Time uploads -->
-      <div class="grid grid-cols-2 gap-4 w-full">
-        <div>
-          <label class="block mb-2 font-semibold">
-            <p class="pi pi-clock"></p>
-            Prep time (minutes)</label
-          >
-          <input
-            pInputText
-            type="number"
-            formControlName="prepTimeMinutes"
-            class="w-full"
-            placeholder="Minutes"
-          />
-          <small
-            *ngIf="
-              recipeForm.get('prepTimeMinutes')?.invalid &&
-              recipeForm.get('prepTimeMinutes')?.touched
-            "
-            class="text-red-400"
-          >
-            Prep time is require
-          </small>
-        </div>
-        <div>
-          <label class="block mb-2 font-semibold">
-            <p class="pi pi-chevron-circle-left"></p>
-            Cook time</label
-          >
-          <input
-            pInputText
-            type="number"
-            formControlName="cookTimeMinutes"
-            class="w-full"
-            placeholder="Minutes"
-          />
-          <small
-            *ngIf="
-              recipeForm.get('cookTimeMinutes')?.invalid &&
-              recipeForm.get('cookTimeMinutes')?.touched
-            "
-            class="text-red-400"
-          >
-            Cook time is require
-          </small>
-        </div>
-      </div>
-
-      <!-- Other info -->
-      <div class="flex flex-col gap-5">
-        <h3 class="text-xl font-bold">Other details</h3>
-        <div class="grid grid-cols-4 gap-4 w-full">
-          <!-- Servings -->
-          <div>
-            <label class="block mb-2 font-semibold">
-              <p class="pi pi-users"></p>
-              Servings</label
-            >
-            <input
-              pInputText
-              type="number"
-              formControlName="servings"
-              class="w-full"
-              placeholder="amount"
-            />
-            <small
-              *ngIf="
-                recipeForm.get('servings')?.invalid &&
-                recipeForm.get('servings')?.touched
-              "
-              class="text-red-400"
-            >
-              Serving amount is require
-            </small>
-          </div>
-
-          <!-- CaloriesPerServing -->
-          <div>
-            <label class="block mb-2 font-semibold">
-              <p class="pi pi-heart"></p>
-              Calories Per Serving</label
-            >
-            <input
-              pInputText
-              type="number"
-              formControlName="caloriesPerServing"
-              class="w-full"
-              placeholder="amount"
-            />
-            <small
-              *ngIf="
-                recipeForm.get('caloriesPerServing')?.invalid &&
-                recipeForm.get('caloriesPerServing')?.touched
-              "
-              class="text-red-400"
-            >
-              Calories is require
-            </small>
-          </div>
-
-          <!-- difficulty -->
-          <div>
-            <label class="block mb-2 font-semibold">
-              <p class="pi pi-bolt"></p>
-              Difficulty</label
-            >
-            <input
-              pInputText
-              type="text"
-              formControlName="difficulty"
-              class="w-full"
-              placeholder="difficulty"
-            />
-            <small
-              *ngIf="
-                recipeForm.get('difficulty')?.invalid &&
-                recipeForm.get('difficulty')?.touched
-              "
-              class="text-red-400"
-            >
-              difficulty is require
-            </small>
-          </div>
-
-          <!-- cuisine -->
-          <div>
-            <label class="block mb-2 font-semibold">
-              <p class="pi pi-globe"></p>
-              Cuisine</label
-            >
-            <input
-              pInputText
-              type="text"
-              formControlName="cuisine"
-              class="w-full"
-              placeholder="cuisine"
-            />
-            <small
-              *ngIf="
-                recipeForm.get('cuisine')?.invalid &&
-                recipeForm.get('cuisine')?.touched
-              "
-              class="text-red-400"
-            >
-              Cuisine is require
-            </small>
-          </div>
-        </div>
-      </div>
-
-      <!-- tags -->
-      <div formArrayName="tags">
-        <label class="block mb-2 font-semibold">
-          <p class="pi pi-tags"></p>
-          Tags</label
-        >
-        <div
-          *ngFor="let tag of tags.controls; let i = index"
-          class="flex gap-2 mb-2"
-        >
-          <input
-            pInputText
-            [formControlName]="i"
-            placeholder="Tag"
-            class="flex-1"
-          />
-          <button
-            pButton
-            type="button"
-            icon="pi pi-times"
-            severity="danger"
-            (click)="removeTag(i)"
-          ></button>
-        </div>
-        <button
-          pButton
-          type="button"
-          label="Add tag"
-          icon="pi pi-plus"
-          (click)="addTag()"
-        ></button>
-      </div>
-
-      <!-- mealType -->
-      <div formArrayName="mealType">
-        <label class="block mb-2 font-semibold">
-          <p class="pi pi-th-large"></p>
-          Meal type</label
-        >
-        <div
-          *ngFor="let type of mealType.controls; let i = index"
-          class="flex gap-2 mb-2"
-        >
-          <input
-            pInputText
-            [formControlName]="i"
-            placeholder="Type"
-            class="flex-1"
-          />
-          <button
-            pButton
-            type="button"
-            icon="pi pi-times"
-            severity="danger"
-            (click)="removeMealType(i)"
-          ></button>
-        </div>
-        <button
-          pButton
-          type="button"
-          label="Add type"
-          icon="pi pi-plus"
-          (click)="addMealType()"
-        ></button>
+      <!-- Other Details -->
+      <div class="grid grid-cols-4 gap-4">
+        <app-number-input
+          [control]="servingsControl"
+          label="Servings"
+          icon="pi pi-users"
+        ></app-number-input>
+        <app-number-input
+          [control]="caloriesPerServingControl"
+          label="Calories Per Serving"
+          icon="pi pi-heart"
+        ></app-number-input>
+        <app-text-input
+          [control]="difficultyControl"
+          label="Difficulty"
+          icon="pi pi-bolt"
+        ></app-text-input>
+        <app-text-input
+          [control]="cuisineControl"
+          label="Cuisine"
+          icon="pi pi-globe"
+        ></app-text-input>
       </div>
 
       <!-- Image Upload -->
-      <div>
-        <label class="block mb-2 font-semibold">
-          <p class="pi pi-image"></p>
-          Thumbnail Image</label
-        >
-        <p-fileUpload
-          *ngIf="!recipeForm.value.image"
-          mode="basic"
-          name="image"
-          [auto]="true"
-          customUpload="true"
-          (uploadHandler)="onImageUpload($event)"
-          chooseLabel="Choose"
-        ></p-fileUpload>
-        <div
-          *ngIf="recipeForm.value.image"
-          class="image-preview-container relative inline-block mt-3"
-        >
-          <img
-            [src]="recipeForm.value.image"
-            alt="Preview"
-            class="w-full h-auto rounded-md shadow-md"
-          />
-
-          <p-button
-            (onClick)="removeImage()"
-            icon="pi pi-times"
-            styleClass="p-button-danger p-button-sm"
-            class="absolute top-0 right-0 m-2"
-            ariaLabel="Remove Image"
-          >
-          </p-button>
-        </div>
-      </div>
+      <app-image-upload
+        [image]="recipeForm.value.image"
+        (imageChange)="onImageUpload($event)"
+        (remove)="removeImage()"
+      ></app-image-upload>
 
       <!-- Submit -->
       <p-toast position="bottom-right" />
