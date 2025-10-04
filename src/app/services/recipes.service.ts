@@ -51,4 +51,12 @@ export class RecipesService {
 
     return this.http.post<Recipe>(this.apiUrl, newRecipe as Recipe);
   }
+
+  updateRecipe(id: string, updatedRecipe: Recipe): Observable<Recipe> {
+    return this.http.patch<Recipe>(`${this.apiUrl}/${id}`, updatedRecipe);
+  }
+
+  deleteRecipe(id: string): Observable<Recipe> {
+    return this.http.delete<Recipe>(`${this.apiUrl}/${id}`);
+  }
 }

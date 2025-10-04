@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Recipe } from '../../interfaces/recipe';
 import { RecipesService } from '../../services/recipes.service';
 import { CardModule } from 'primeng/card';
@@ -45,6 +45,7 @@ export class RecipeDetailsComponent {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private RecipeService: RecipesService
   ) {}
 
@@ -97,9 +98,6 @@ export class RecipeDetailsComponent {
     ).subscribe({
       next: (updatedRecipe) => {
         this.recipe = updatedRecipe;
-        console.log(
-          `Recipe ${updatedRecipe.id} is now favourited: ${updatedRecipe.isFavorited}`
-        );
       },
       error: (err) => {
         console.error('Failed to favourite recipe:', err);
@@ -135,6 +133,18 @@ export class RecipeDetailsComponent {
     this.editMode = !this.editMode;
   }
 
+  deleteRecipe() {
+    this.RecipeService.deleteRecipe(this.recipeId).subscribe({
+      next: () => {
+        console.log('Recipe removed successfully!');
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Failed to remove recipe', err);
+      },
+    });
+  }
+
   onImageSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
@@ -153,12 +163,21 @@ export class RecipeDetailsComponent {
         ...this.recipeForm.value,
       };
       console.log('Recipe update succesfull', updatedRecipe);
+
+      this.RecipeService.updateRecipe(this.recipeId, updatedRecipe).subscribe({
+        next: (updatedRecipe) => {
+          this.recipe = updatedRecipe;
+          this.editMode = false;
+        },
+        error: (err) => {
+          console.error('Failed to update recipe:', err);
+        },
+      });
     }
   }
 
   cancelChanges() {
     if (this.recipe) {
-      // Reset form to original recipe values
       this.recipeForm.reset({
         name: this.recipe.name,
         description: this.recipe.description,
@@ -171,7 +190,6 @@ export class RecipeDetailsComponent {
         instructions: this.recipe.instructions.slice(),
       });
 
-      // Reset FormArrays for ingredients and instructions
       this.recipeForm.setControl(
         'ingredients',
         this.fb.array(
@@ -189,7 +207,6 @@ export class RecipeDetailsComponent {
         )
       );
 
-      // Close edit mode
       this.editMode = false;
     }
   }
