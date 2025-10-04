@@ -9,6 +9,9 @@ import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 import {
   FormArray,
   FormBuilder,
@@ -30,7 +33,10 @@ import { InputTextModule } from 'primeng/inputtext';
     DividerModule,
     ButtonModule,
     RatingModule,
+    ConfirmDialog,
+    ToastModule,
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css',
 })
@@ -46,7 +52,9 @@ export class RecipeDetailsComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private RecipeService: RecipesService
+    private RecipeService: RecipesService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
@@ -137,10 +145,118 @@ export class RecipeDetailsComponent {
     this.RecipeService.deleteRecipe(this.recipeId).subscribe({
       next: () => {
         console.log('Recipe removed successfully!');
-        this.router.navigate(['/']);
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 600);
       },
       error: (err) => {
         console.error('Failed to remove recipe', err);
+      },
+    });
+  }
+
+  save(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to save changes?',
+      header: 'Update recipe',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-info-circle',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Update',
+      },
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Confirmed',
+          detail: 'Recipe has been updated',
+        });
+        this.saveChanges();
+        this.editMode = false;
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'Update canceled',
+          life: 3000,
+        });
+      },
+    });
+  }
+
+  cancel(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to cancel editing?',
+      header: 'Cancel',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'No',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Yes',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Canceled',
+          detail: 'Recipe edit canceled',
+        });
+        this.cancelChanges();
+        this.editMode = false;
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
+    });
+  }
+  delete(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to delete this recipe?',
+      header: 'Delete',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+
+      accept: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Deleted',
+          detail: 'Recipe has been deleted',
+        });
+        this.deleteRecipe();
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Rejected',
+          detail: 'Recipe deletion rejected',
+        });
       },
     });
   }

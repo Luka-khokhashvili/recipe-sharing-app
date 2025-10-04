@@ -67,11 +67,12 @@
                 </button>
               </div>
               <div class="group relative inline-block transition-all">
+                <p-confirmdialog />
                 <button
                   pButton
                   severity="danger"
                   class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
-                  (click)="deleteRecipe()"
+                  (click)="delete($event)"
                 >
                   <i
                     class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
@@ -351,21 +352,25 @@
 
         <!-- Save -->
         <div class="mt-6 flex gap-4">
+          <p-confirmdialog />
           <button
             pButton
             type="button"
             label="Save Changes"
-            (click)="saveChanges()"
+            (click)="save($event)"
           ></button>
           <button
             pButton
             type="button"
             label="Cancel Changes"
             severity="danger"
-            (click)="cancelChanges()"
+            (click)="cancel($event)"
           ></button>
         </div>
       </div>
     </form>
+
+    <!-- Pop up notifications -->
+    <p-toast position="bottom-right" />
   </div>
 </div>
