@@ -1,0 +1,42 @@
+<div class="flex flex-col gap-3">
+  <label class="font-semibold flex items-center gap-2">
+    <i class="pi pi-image text-emerald-400"></i> Thumbnail Image
+  </label>
+
+  <!-- Upload Button -->
+  <div *ngIf="!image" class="relative group">
+    <input
+      type="file"
+      #fileInput
+      accept="image/*"
+      (change)="onFileSelected($event)"
+      class="hidden"
+    />
+
+    <button
+      pButton
+      type="button"
+      icon="pi pi-upload"
+      class="transition-all duration-300 bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg flex items-center gap-2"
+      (click)="triggerUpload(fileInput)"
+    >
+      <span class="hidden group-hover:inline">Upload</span>
+    </button>
+  </div>
+
+  <!-- Preview -->
+  <div *ngIf="image" class="relative mt-3">
+    <img
+      [src]="image"
+      alt="Preview"
+      class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
+    />
+    <button
+      pButton
+      icon="pi pi-times"
+      class="p-button-danger absolute top-2 right-2 opacity-90 hover:opacity-100"
+      (click)="removeImage()"
+      aria-label="Remove Image"
+    ></button>
+  </div>
+</div>
