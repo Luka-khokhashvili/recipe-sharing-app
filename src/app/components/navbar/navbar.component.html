@@ -1,10 +1,34 @@
-<div class="bg-zinc-900 flex w-full items-center justify-between px-4 py-4 md:py-0">
+<div
+  class="bg-zinc-900 flex w-full items-center justify-between px-4 py-4 md:py-0"
+>
   <a routerLink="/" class="text-2xl font-bold text-emerald-400"
     >Recipe Dashboard</a
   >
 
   <div
-    class="absolute md:static top-15 md:top-0 right-3 md:right-0 rounded md:rounded-none shadow md:shadow-none flex flex-col md:flex-row items-stretch md:items-center z-10 bg-zinc-800 p-2 md:bg-transparent"
+    class="hidden top-15 md:top-0 right-3 md:right-0 rounded md:rounded-none shadow md:shadow-none md:flex flex-col md:flex-row items-stretch md:items-center z-10 bg-zinc-800 p-2 md:bg-transparent"
+  >
+    <p-tabs value="/homepage">
+      <p-tablist class="flex flex-col md:flex-row gap-1">
+        @for(tab of tabs; track tab.route){
+        <p-tab
+          [value]="tab.route"
+          [routerLink]="tab.route"
+          [ngClass]="{ 'active-tab': isActive(tab.route) }"
+          class="flex items-center !gap-2"
+        >
+          <i [class]="tab.icon"></i>
+          <span>{{ tab.label }}</span>
+        </p-tab>
+        }
+      </p-tablist>
+    </p-tabs>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    *ngIf="isMobileMenuVisible"
+    class="absolute md:hidden top-15 md:top-0 right-3 md:right-0 rounded md:rounded-none shadow md:shadow-none flex flex-col md:flex-row items-stretch md:items-center z-10 bg-zinc-800 p-2 md:bg-transparent"
   >
     <p-tabs value="/homepage">
       <p-tablist class="flex flex-col md:flex-row gap-1">
