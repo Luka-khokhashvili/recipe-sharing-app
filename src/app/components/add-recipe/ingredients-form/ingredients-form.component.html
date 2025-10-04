@@ -1,0 +1,38 @@
+<div [formGroup]="parentGroup!">
+  <div formArrayName="ingredients" class="space-y-3">
+    <label class="mb-2 font-semibold flex items-center gap-2">
+      <i class="pi pi-shopping-bag text-emerald-400"></i>
+      Ingredients
+    </label>
+
+    <div
+      *ngFor="let ing of ingredients.controls; let i = index"
+      class="flex gap-2 items-center"
+    >
+      <input
+        pInputText
+        [formControlName]="i"
+        placeholder="Ingredient"
+        class="flex-1"
+      />
+      <button
+        pButton
+        icon="pi pi-times"
+        type="button"
+        severity="danger"
+        (click)="removeIngredient(i)"
+      ></button>
+    </div>
+
+    <div class="pt-2">
+      <button
+        pButton
+        type="button"
+        label="Add Ingredient"
+        icon="pi pi-plus"
+        class="bg-emerald-600 hover:bg-emerald-500"
+        (click)="addIngredient()"
+      ></button>
+    </div>
+  </div>
+</div>
