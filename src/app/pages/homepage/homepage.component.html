@@ -1,42 +1,64 @@
-<div
-  class="mb-4 mt-20 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"
->
-  <p-card *ngFor="let recipe of recipes" class="flex flex-col h-full">
-    <!-- Header Image -->
-    <ng-template #header>
-      <div class="relative w-full h-48 overflow-hidden rounded-lg">
-        <button
-          [class]="`pi ${recipe.isFavorited ? 'pi-star-fill' : 'pi-star'} bg-emerald-600 hover:bg-emerald-500 p-1 rounded absolute top-2 right-2 cursor-pointer`"
-          (click)="favorite(recipe)"
-        ></button>
-        <img
-          [alt]="recipe.name"
-          [src]="recipe.image"
-          class="w-full h-full object-cover"
-        />
-      </div>
-    </ng-template>
+<section class="flex flex-col items-center w-full mt-20">
+  <div class="flex justify-end w-full">
+    <app-search (searchTermChanged)="filterRecipes($event)"></app-search>
+  </div>
 
-    <!-- Title -->
-    <ng-template #title>
-      <h3 class="text-base font-semibold text-emerald-400 truncate">
-        {{ recipe.name }}
-      </h3>
-    </ng-template>
+  <div
+    *ngIf="filteredRecipes.length > 0; else noResults"
+    class="mb-4 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"
+  >
+    <p-card *ngFor="let recipe of filteredRecipes" class="flex flex-col h-full">
+      <!-- Header Image -->
+      <ng-template #header>
+        <div class="relative w-full h-48 overflow-hidden rounded-lg">
+          <button
+            [class]="`pi ${recipe.isFavorited ? 'pi-star-fill' : 'pi-star'} bg-emerald-600 hover:bg-emerald-500 p-1 rounded absolute top-2 right-2 cursor-pointer`"
+            (click)="favorite(recipe)"
+          ></button>
+          <img
+            [alt]="recipe.name"
+            [src]="recipe.image"
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </ng-template>
 
-    <!-- Description -->
-    <p class="text-sm flex-1 overflow-hidden line-clamp-3">
-      {{ recipe.description }}
-    </p>
+      <!-- Title -->
+      <ng-template #title>
+        <h3 class="text-base font-semibold text-emerald-400 truncate">
+          {{ recipe.name }}
+        </h3>
+      </ng-template>
 
-    <!-- Footer Buttons -->
-    <ng-template #footer>
-      <div class="mt-2">
-        <p-button
-          label="Details"
-          [routerLink]="`recipe/${recipe.id}`"
-        ></p-button>
-      </div>
-    </ng-template>
-  </p-card>
-</div>
+      <!-- Description -->
+      <p class="text-sm flex-1 overflow-hidden line-clamp-3">
+        {{ recipe.description }}
+      </p>
+
+      <!-- Footer Buttons -->
+      <ng-template #footer>
+        <div class="mt-2">
+          <p-button
+            label="Details"
+            [routerLink]="`recipe/${recipe.id}`"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <!-- No Results Template -->
+  <ng-template #noResults>
+    <div
+      class="flex flex-col items-center justify-center text-center mt-12 text-gray-400"
+    >
+      <p class="text-xl font-semibold mb-2 flex items-center gap-2">
+        <i class="pi pi-search text-5xl text-emerald-500"></i>No recipes
+        <span>found</span>
+      </p>
+      <p class="text-sm text-gray-500">
+        Try adjusting your search — check spelling or use different keywords.
+      </p>
+    </div>
+  </ng-template>
+</section>

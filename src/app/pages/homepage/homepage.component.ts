@@ -5,14 +5,23 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { Recipe } from '../../interfaces/recipe';
 import { RouterLink } from '@angular/router';
+import { SearchComponent } from '../../components/search/search.component';
+
 @Component({
   selector: 'app-homepage',
-  imports: [CommonModule, CardModule, ButtonModule, RouterLink],
+  imports: [
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    RouterLink,
+    SearchComponent,
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
 export class HomepageComponent {
   recipes: Recipe[] = [];
+  filteredRecipes: Recipe[] = [];
 
   constructor(private RecipeService: RecipesService) {}
 
@@ -20,7 +29,17 @@ export class HomepageComponent {
     this.RecipeService.getRecipes().subscribe((data) => {
       console.log('Fetched recipes:', data);
       this.recipes = data;
+      this.filteredRecipes = data;
     });
+  }
+
+  filterRecipes(term: string) {
+    const lowerTerm = term.toLowerCase();
+    this.filteredRecipes = this.recipes.filter(
+      (r) =>
+        r.name.toLowerCase().includes(lowerTerm) ||
+        r.ingredients.some((ing) => ing.toLowerCase().includes(lowerTerm))
+    );
   }
 
   favorite = (recipe: Recipe): void => {

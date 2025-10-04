@@ -1,4 +1,8 @@
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams,
+  JsonpClientBackend,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NewRecipeFormData, Recipe } from '../interfaces/recipe';
@@ -17,6 +21,11 @@ export class RecipesService {
 
   getRecipeById(id: string): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
+  }
+
+  searchRecipes(query: string): Observable<Recipe[]> {
+    const params = new HttpParams().set('q', query);
+    return this.http.get<Recipe[]>(this.apiUrl, { params });
   }
 
   favourtieRecipeById(
