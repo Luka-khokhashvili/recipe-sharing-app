@@ -6,6 +6,7 @@ import {
   FormArray,
   Validators,
   ReactiveFormsModule,
+  FormControl,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { Textarea } from 'primeng/inputtextarea';
@@ -14,11 +15,17 @@ import { TagModule } from 'primeng/tag';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { RecipesService } from '../../services/recipes.service';
-import { NewRecipeFormData } from '../../interfaces/recipe';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
-import { Router } from '@angular/router';
+import { ImageUploadComponent } from '../../components/add-recipe/image-upload/image-upload.component';
+import { IngredientsFormComponent } from '../../components/add-recipe/ingredients-form/ingredients-form.component';
+import { InstructionsFormComponent } from '../../components/add-recipe/instructions-form/instructions-form.component';
+import { TagsFormComponent } from '../../components/add-recipe/tags-form/tags-form.component';
+import { MealTypeFormComponent } from '../../components/add-recipe/meal-type-form/meal-type-form.component';
+import { TextareaInputComponent } from '../../components/add-recipe/textarea-input/textarea-input.component';
+import { TextInputComponent } from '../../components/add-recipe/text-input/text-input.component';
+import { NumberInputComponent } from '../../components/add-recipe/number-input/number-input.component';
 
 @Component({
   selector: 'app-add-recipe',
@@ -34,166 +41,167 @@ import { Router } from '@angular/router';
     DividerModule,
     ConfirmDialog,
     ToastModule,
+    ImageUploadComponent,
+    IngredientsFormComponent,
+    InstructionsFormComponent,
+    TagsFormComponent,
+    MealTypeFormComponent,
+    TextareaInputComponent,
+    TextInputComponent,
+    NumberInputComponent,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './add-recipe.component.html',
 })
 export class AddRecipeComponent {
-  recipeForm: FormGroup;
-  private cleanFormState: any = {
-    name: '',
-    description: '',
-    ingredients: [''], // One empty control for initial state
-    instructions: [''],
-    prepTimeMinutes: null,
-    cookTimeMinutes: null,
-    servings: null,
-    caloriesPerServing: null,
-    difficulty: '',
-    cuisine: '',
-    tags: [''],
-    image: '',
-    mealType: [''],
-  };
+  recipeForm!: FormGroup;
 
   constructor(
-    private RecipeService: RecipesService,
     private fb: FormBuilder,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService,
-    private router: Router
-  ) {
+    private recipeService: RecipesService,
+    private message: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.recipeForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
       ingredients: this.fb.array([this.fb.control('', Validators.required)]),
       instructions: this.fb.array([this.fb.control('', Validators.required)]),
-      prepTimeMinutes: ['', [Validators.required]],
-      cookTimeMinutes: ['', [Validators.required]],
-      servings: ['', [Validators.required]],
-      caloriesPerServing: ['', [Validators.required]],
-      difficulty: ['', [Validators.required]],
-      cuisine: ['', [Validators.required]],
+      prepTimeMinutes: ['', Validators.required],
+      cookTimeMinutes: ['', Validators.required],
+      servings: ['', Validators.required],
+      caloriesPerServing: ['', Validators.required],
+      difficulty: ['', Validators.required],
+      cuisine: ['', Validators.required],
       tags: this.fb.array([this.fb.control('', Validators.required)]),
-      image: [null, Validators.required],
       mealType: this.fb.array([this.fb.control('', Validators.required)]),
+      image: [''],
     });
   }
 
+  private getControl(name: string): FormControl {
+    // Use non-null assertion (!) because we know these controls exist in initForm
+    return this.recipeForm.get(name) as FormControl;
+  }
+
+  private getArray(name: string): FormArray {
+    return this.recipeForm.get(name) as FormArray;
+  }
+
+  // Getters for cleaner template access
+  get nameControl(): FormControl {
+    return this.getControl('name');
+  }
+  get descriptionControl(): FormControl {
+    return this.getControl('description');
+  }
+  get prepTimeControl(): FormControl {
+    return this.getControl('prepTimeMinutes');
+  }
+  get cookTimeControl(): FormControl {
+    return this.getControl('cookTimeMinutes');
+  }
+  get servingsControl(): FormControl {
+    return this.getControl('servings');
+  }
+  get caloriesPerServingControl(): FormControl {
+    return this.getControl('caloriesPerServing');
+  }
+  get difficultyControl(): FormControl {
+    return this.getControl('difficulty');
+  }
+  get cuisineControl(): FormControl {
+    return this.getControl('cuisine');
+  }
+
   get ingredients() {
-    return this.recipeForm.get('ingredients') as FormArray;
+    return this.getArray('ingredients');
   }
-
   get instructions() {
-    return this.recipeForm.get('instructions') as FormArray;
+    return this.getArray('instructions');
   }
-
   get tags() {
-    return this.recipeForm.get('tags') as FormArray;
+    return this.getArray('tags');
   }
-
   get mealType() {
-    return this.recipeForm.get('mealType') as FormArray;
+    return this.getArray('mealType');
   }
 
   addIngredient() {
     this.ingredients.push(this.fb.control('', Validators.required));
   }
-
-  removeIngredient(index: number) {
-    this.ingredients.removeAt(index);
+  removeIngredient(i: number) {
+    this.ingredients.removeAt(i);
   }
 
   addInstruction() {
     this.instructions.push(this.fb.control('', Validators.required));
   }
-
-  removeInstruction(index: number) {
-    this.instructions.removeAt(index);
+  removeInstruction(i: number) {
+    this.instructions.removeAt(i);
   }
 
   addTag() {
     this.tags.push(this.fb.control('', Validators.required));
   }
-
-  removeTag(index: number) {
-    this.tags.removeAt(index);
+  removeTag(i: number) {
+    this.tags.removeAt(i);
   }
 
   addMealType() {
     this.mealType.push(this.fb.control('', Validators.required));
   }
-
-  removeMealType(index: number) {
-    this.mealType.removeAt(index);
+  removeMealType(i: number) {
+    this.mealType.removeAt(i);
   }
 
   onImageUpload(event: any) {
-    const file = event.files[0];
+    const file = event.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () =>
-        this.recipeForm.patchValue({ image: reader.result });
+        this.recipeForm.patchValue({ image: reader.result as string });
       reader.readAsDataURL(file);
     }
   }
 
-  add(event: Event) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Are you sure you want to save changes?',
-      header: 'Update recipe',
-      closable: true,
-      closeOnEscape: true,
-      icon: 'pi pi-info-circle',
-      rejectButtonProps: {
-        label: 'Cancel',
-        severity: 'secondary',
-        outlined: true,
-      },
-      acceptButtonProps: {
-        label: 'Update',
-      },
-      accept: () => {
-        this.messageService.add({
+  removeImage() {
+    this.recipeForm.patchValue({ image: '' });
+  }
+
+  addRecipe(): void {
+    if (this.recipeForm.invalid) {
+      this.recipeForm.markAllAsTouched();
+      this.message.add({
+        severity: 'error',
+        summary: 'Invalid Data',
+        detail: 'Please fill all fields correctly.',
+      });
+      return;
+    }
+
+    this.recipeService.postRecipe(this.recipeForm.value).subscribe({
+      next: () => {
+        this.message.add({
           severity: 'success',
-          summary: 'Confirmed',
-          detail: 'New recipe added',
+          summary: 'Recipe Added',
+          detail: 'Your recipe has been saved!',
         });
-        this.submit();
+        this.recipeForm.reset();
       },
-      reject: () => {
-        this.messageService.add({
+      error: (err) => {
+        console.error(err);
+        this.message.add({
           severity: 'error',
-          summary: 'Rejected',
-          detail: 'Recipe submision has been canceled',
-          life: 3000,
+          summary: 'Error',
+          detail: 'Failed to add recipe.',
         });
       },
     });
-  }
-
-  removeImage() {
-    this.recipeForm.get('image')?.setValue(null);
-  }
-
-  submit() {
-    if (this.recipeForm.valid) {
-      const recipeData = this.recipeForm.value as NewRecipeFormData;
-
-      this.RecipeService.postRecipe(recipeData).subscribe({
-        next: (newRecipe) => {
-          console.log('Recipe added successfully:', newRecipe);
-          this.recipeForm.reset(this.cleanFormState);
-        },
-        error: (err) => {
-          console.error('Error adding recipe:', err);
-          // TODO: Add error notification
-        },
-      });
-    } else {
-      console.log('Form is invalid. Cannot submit.');
-      this.recipeForm.markAllAsTouched();
-    }
   }
 }
