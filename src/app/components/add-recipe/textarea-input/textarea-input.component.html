@@ -1,0 +1,16 @@
+<div class="flex flex-col">
+  <label class="mb-1 font-semibold">
+    <i *ngIf="icon" class="{{ icon }} mr-1"></i>
+    {{ label }}
+  </label>
+  <textarea
+    pTextarea 
+    [formControl]="control"
+    [rows]="rows"
+    [placeholder]="placeholder"
+    class="w-full min-h-[100px] max-h-[300px]"
+  ></textarea>
+  <small *ngIf="control?.invalid && control?.touched" class="text-red-400">
+    Invalid {{ label }}
+  </small>
+</div>
