@@ -9,13 +9,21 @@ import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-recipe-details',
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
     CardModule,
     TagModule,
     ChipModule,
@@ -31,28 +39,55 @@ export class RecipeDetailsComponent {
   recipeId: string = '1';
   isLoading: boolean = false;
 
+  editMode = false;
+  recipeForm!: FormGroup;
+
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private RecipeService: RecipesService
   ) {}
 
   ngOnInit() {
     this.recipeId = this.route.snapshot.paramMap.get('id') || '1';
+    this.isLoading = true;
 
     if (this.recipeId) {
-      this.isLoading = true;
       this.RecipeService.getRecipeById(this.recipeId).subscribe({
-        next: (data) => {
-          this.recipe = data;
+        next: (recipe) => {
+          this.recipe = recipe;
+          this.initForm(recipe);
         },
         error: (err) => {
           console.error('Unable to get recipe data', err);
-        },
-        complete: () => {
           this.isLoading = false;
         },
       });
     }
+  }
+
+  initForm(recipe: Recipe) {
+    this.recipeForm = this.fb.group({
+      name: [recipe.name, Validators.required],
+      image: [recipe.image, Validators.required],
+      description: [recipe.description, Validators.required],
+      prepTimeMinutes: [
+        recipe.prepTimeMinutes,
+        [Validators.required, Validators.min(1)],
+      ],
+      cookTimeMinutes: [
+        recipe.cookTimeMinutes,
+        [Validators.required, Validators.min(1)],
+      ],
+      servings: [recipe.servings, Validators.required],
+      caloriesPerServing: [recipe.caloriesPerServing, Validators.required],
+      ingredients: this.fb.array(
+        recipe.ingredients.map((i) => this.fb.control(i, Validators.required))
+      ),
+      instructions: this.fb.array(
+        recipe.instructions.map((i) => this.fb.control(i, Validators.required))
+      ),
+    });
   }
 
   favorite = () => {
@@ -71,4 +106,53 @@ export class RecipeDetailsComponent {
       },
     });
   };
+
+  get ingredients() {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  get instructions() {
+    return this.recipeForm.get('instructions') as FormArray;
+  }
+
+  addIngredient() {
+    this.ingredients.push(this.fb.control(''));
+  }
+
+  removeIngredient(index: number) {
+    this.ingredients.removeAt(index);
+  }
+
+  addInstruction() {
+    this.instructions.push(this.fb.control(''));
+  }
+
+  removeInstruction(index: number) {
+    this.instructions.removeAt(index);
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
+  }
+
+  onImageSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.recipeForm.get('image')?.setValue(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  saveChanges() {
+    if (this.recipeForm.valid) {
+      const updatedRecipe = {
+        ...this.recipe,
+        ...this.recipeForm.value,
+      };
+      console.log('Recipe update succesfull', updatedRecipe);
+    }
+  }
 }

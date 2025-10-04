@@ -1,115 +1,321 @@
 <div
-  class="p-6 max-w-5xl md:max-w-screen mx-auto md:mx-0 flex flex-col md:flex-row md:gap-8"
+  class="p-6 mt-20 max-w-5xl md:max-w-screen mx-auto flex flex-col md:flex-row gap-8"
 >
-  <div class="hidden xl:block">
+  <!-- Image -->
+  <div *ngIf="!editMode" class="hidden xl:block">
     <img
       [src]="recipe?.image"
       [alt]="recipe?.name"
       class="w-full rounded-xl shadow-md object-cover max-h-[900px]"
     />
   </div>
+
+  <!-- Details -->
   <div class="flex flex-col md:w-full xl:w-[49vw]">
-    <div class="grid md:grid-cols-2 xl:flex xl:flex-col gap-6">
-      <div class="block xl:hidden">
-        <img
-          [src]="recipe?.image"
-          [alt]="recipe?.name"
-          class="w-full rounded-xl shadow-md object-cover max-h-[400px]"
-        />
+    <div *ngIf="!editMode" class="flex flex-col md:w-full xl:w-[49vw]">
+      <div class="grid md:grid-cols-2 xl:flex xl:flex-col gap-6">
+        <div class="block xl:hidden">
+          <img
+            [src]="recipe?.image"
+            [alt]="recipe?.name"
+            class="w-full rounded-xl shadow-md object-cover max-h-[400px]"
+          />
+        </div>
+        <div class="flex flex-col justify-between">
+          <div>
+            <div class="flex w-full justify-between p-2">
+              <h1 class="text-2xl font-bold text-emerald-500 mb-2">
+                {{ recipe?.name }}
+              </h1>
+              <div class="group relative inline-block transition-all">
+                <button
+                  pButton
+                  class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
+                  (click)="toggleEdit()"
+                >
+                  <i
+                    class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
+                  ></i>
+                  <span
+                    class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
+                  >
+                    Edit
+                  </span>
+                </button>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">{{ recipe?.description }}</p>
+            <div class="flex items-center gap-2 mb-4">
+              <p-rating [readonly]="true" *ngIf="recipe"></p-rating>
+              <span class="text-sm text-gray-400">
+                ({{ recipe?.reviewCount }} reviews)
+              </span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <p-tag
+                *ngFor="let tag of recipe?.tags"
+                [value]="tag"
+                severity="success"
+              ></p-tag>
+            </div>
+          </div>
+          <div class="flex gap-4 mt-6">
+            <p-button
+              [label]="`${recipe?.isFavorited ? 'Favorited' : 'Favorite'}`"
+              [icon]="`pi ${recipe?.isFavorited ? 'pi-star-fill' : 'pi-star'}`"
+              (onClick)="favorite()"
+            ></p-button>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col justify-between">
+      <p-divider></p-divider>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         <div>
-          <h1 class="text-2xl font-bold text-emerald-500 mb-2">
-            {{ recipe?.name }}
-          </h1>
-          <p class="text-gray-300 mb-4">{{ recipe?.description }}</p>
+          <h4 class="font-semibold">
+            <span class="pi pi-clock"></span>
+            Prep Time
+          </h4>
+          <p>{{ recipe?.prepTimeMinutes }} min</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">
+            <span class="pi pi-chevron-circle-left"></span>
+            Cook Time
+          </h4>
+          <p>{{ recipe?.cookTimeMinutes }} min</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">
+            <span class="pi pi-users"></span> Servings
+          </h4>
+          <p>{{ recipe?.servings }}</p>
+        </div>
+        <div>
+          <h4 class="font-semibold">
+            <span class="pi pi-heart"></span> Calories
+          </h4>
+          <p>{{ recipe?.caloriesPerServing }} kcal</p>
+        </div>
+      </div>
+      <p-divider></p-divider>
+      <div class="mb-6 xl:mt-6">
+        <h3 class="text-xl font-bold text-emerald-400 mb-2">
+          <span class="pi pi-shopping-cart"></span> Ingredients
+        </h3>
+        <ul class="list-disc pl-5 space-y-1 text-gray-200">
+          <li *ngFor="let ingredient of recipe?.ingredients">
+            {{ ingredient }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold text-emerald-400 mb-2">
+          <span class="pi pi-list-check"></span> Instructions
+        </h3>
+        <ol class="list-decimal pl-5 space-y-2 text-gray-200">
+          <li *ngFor="let step of recipe?.instructions">{{ step }}</li>
+        </ol>
+      </div>
+    </div>
 
-          <div class="flex items-center gap-2 mb-4">
-            <p-rating
-              [(ngModel)]="recipe.rating"
-              [readonly]="true"
-              *ngIf="recipe"
-            ></p-rating>
-            <span class="text-sm text-gray-400">
-              ({{ recipe?.reviewCount }} reviews)
+    <!-- Reactive Form -->
+    <form
+      *ngIf="editMode && recipeForm"
+      [formGroup]="recipeForm"
+      class="space-y-8 bg-gray-800 p-6 rounded-lg"
+    >
+      <div class="grid grid-cols-2">
+        <div class="relative flex flex-col items-center xl:block">
+          <!-- Image preview -->
+          <img
+            [src]="recipeForm.get('image')?.value"
+            [alt]="recipeForm.get('name')?.value"
+            class="w-full rounded-xl shadow-md object-cover max-h-[400px] xl:max-h-[900px]"
+          />
+
+          <!-- Hidden file input -->
+          <input
+            type="file"
+            accept="image/*"
+            #fileInput
+            class="hidden"
+            (change)="onImageSelected($event)"
+          />
+
+          <!-- Styled upload button -->
+          <button
+            type="button"
+            (click)="fileInput.click()"
+            pButton
+            class="!absolute top-2 right-2 flex items-center bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 group"
+          >
+            <i
+              class="pi pi-upload text-lg transition-transform duration-300 group-hover:translate-x-1"
+            ></i>
+            <span
+              class="ml-2 opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[80px]"
+            >
+              Choose
             </span>
-          </div>
-
-          <div class="flex flex-wrap gap-2">
-            <p-tag
-              *ngFor="let tag of recipe?.tags"
-              [value]="tag"
-              severity="success"
-            ></p-tag>
-          </div>
+          </button>
         </div>
 
-        <div class="flex gap-4 mt-6">
-          <p-button
-            [label]="`${recipe?.isFavorited ? 'Favorited' : 'Favorite'}`"
-            [icon]="`pi ${recipe?.isFavorited ? 'pi-star-fill' : 'pi-star'}`"
-            (onClick)="favorite()"
-          ></p-button>
+        <div class="flex flex-col p-2 gap-4">
+          <div
+            class="group relative w-full flex justify-between transition-all"
+          >
+            <!-- Editable name -->
+            <div class="flex items-center gap-2">
+              <label class="block font-semibold mb-1 text-emerald-400"
+                >Name</label
+              >
+              <input
+                type="text"
+                pInputText
+                formControlName="name"
+                class="text-2xl font-bold text-emerald-500 bg-transparent border-none w-full"
+              />
+            </div>
+            <button
+              pButton
+              class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
+              (click)="toggleEdit()"
+            >
+              <i
+                class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
+              ></i>
+              <span
+                class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
+              >
+                Cancel
+              </span>
+            </button>
+          </div>
+          <!-- Description -->
+          <div>
+            <label class="block font-semibold mb-1 text-emerald-400"
+              >Description</label
+            >
+            <textarea
+              pInputText
+              formControlName="description"
+              rows="3"
+              class="w-full min-h-[80px] max-h-[163px]"
+              placeholder="Recipe description"
+            ></textarea>
+          </div>
+
+          <!-- Timings -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+              <label class="block font-semibold mb-1">Prep Time</label>
+              <input
+                pInputText
+                type="number"
+                formControlName="prepTimeMinutes"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label class="block font-semibold mb-1">Cook Time</label>
+              <input
+                pInputText
+                type="number"
+                formControlName="cookTimeMinutes"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label class="block font-semibold mb-1">Servings</label>
+              <input
+                pInputText
+                type="number"
+                formControlName="servings"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label class="block font-semibold mb-1">Calories</label>
+              <input
+                pInputText
+                type="number"
+                formControlName="caloriesPerServing"
+                class="w-full"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <p-divider></p-divider>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div>
-        <h4 class="font-semibold">
-          <span class="pi pi-clock"></span>
-          Prep Time
-        </h4>
-        <p>{{ recipe?.prepTimeMinutes }} min</p>
+      <!-- Ingredients -->
+      <div formArrayName="ingredients" class="space-y-2">
+        <h3 class="text-lg font-bold text-emerald-400">Ingredients</h3>
+        <div
+          *ngFor="let ing of ingredients.controls; let i = index"
+          class="flex gap-2"
+        >
+          <input
+            pInputText
+            [formControlName]="i"
+            class="flex-1"
+            placeholder="Ingredient"
+          />
+          <button
+            pButton
+            icon="pi pi-times"
+            type="button"
+            severity="danger"
+            (click)="removeIngredient(i)"
+          ></button>
+        </div>
+        <button
+          pButton
+          label="Add Ingredient"
+          icon="pi pi-plus"
+          type="button"
+          (click)="addIngredient()"
+        ></button>
       </div>
-      <div>
-        <h4 class="font-semibold">
-          <span class="pi pi-chevron-circle-left"></span>
-          Cook Time
-        </h4>
-        <p>{{ recipe?.cookTimeMinutes }} min</p>
-      </div>
-      <div>
-        <h4 class="font-semibold">
-          <span class="pi pi-users"></span> Servings
-        </h4>
-        <p>{{ recipe?.servings }}</p>
-      </div>
-      <div>
-        <h4 class="font-semibold">
-          <span class="pi pi-heart"></span>
-          Calories
-        </h4>
-        <p>{{ recipe?.caloriesPerServing }} kcal</p>
-      </div>
-    </div>
 
-    <p-divider></p-divider>
+      <!-- Instructions -->
+      <div formArrayName="instructions" class="space-y-2">
+        <h3 class="text-lg font-bold text-emerald-400 mt-4">Instructions</h3>
+        <div
+          *ngFor="let step of instructions.controls; let i = index"
+          class="flex gap-2"
+        >
+          <input
+            pInputText
+            [formControlName]="i"
+            class="flex-1"
+            placeholder="Step"
+          />
+          <button
+            pButton
+            icon="pi pi-times"
+            type="button"
+            severity="danger"
+            (click)="removeInstruction(i)"
+          ></button>
+        </div>
+        <button
+          pButton
+          label="Add Step"
+          icon="pi pi-plus"
+          type="button"
+          (click)="addInstruction()"
+        ></button>
+      </div>
 
-    <div class="mb-6 xl:mt-6">
-      <h3 class="text-xl font-bold text-emerald-400 mb-2">
-        <span class="pi pi-shopping-cart"></span>
-        Ingredients
-      </h3>
-      <ul class="list-disc pl-5 space-y-1 text-gray-200">
-        <li *ngFor="let ingredient of recipe?.ingredients">
-          {{ ingredient }}
-        </li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="text-xl font-bold text-emerald-400 mb-2">
-        <span class="pi pi-list-check"></span>
-        Instructions
-      </h3>
-      <ol class="list-decimal pl-5 space-y-2 text-gray-200">
-        <li *ngFor="let step of recipe?.instructions">
-          {{ step }}
-        </li>
-      </ol>
-    </div>
+      <!-- Save -->
+      <div class="mt-6 float-end">
+        <button
+          pButton
+          type="button"
+          label="Save Changes"
+          (click)="saveChanges()"
+        ></button>
+      </div>
+    </form>
   </div>
 </div>
