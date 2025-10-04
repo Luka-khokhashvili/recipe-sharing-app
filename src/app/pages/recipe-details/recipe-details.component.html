@@ -211,7 +211,10 @@
           <!-- Timings -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <label class="block font-semibold mb-1">Prep Time</label>
+              <label class="block text-sm font-semibold mb-1">
+                <span class="pi pi-clock"></span>
+                Prep Time
+              </label>
               <input
                 pInputText
                 type="number"
@@ -220,7 +223,10 @@
               />
             </div>
             <div>
-              <label class="block font-semibold mb-1">Cook Time</label>
+              <label class="block text-sm font-semibold mb-1">
+                <span class="pi pi-chevron-circle-left"></span>
+                Cook Time
+              </label>
               <input
                 pInputText
                 type="number"
@@ -229,7 +235,10 @@
               />
             </div>
             <div>
-              <label class="block font-semibold mb-1">Servings</label>
+              <label class="block text-sm font-semibold mb-1">
+                <span class="pi pi-users"></span>
+                Servings
+              </label>
               <input
                 pInputText
                 type="number"
@@ -238,7 +247,10 @@
               />
             </div>
             <div>
-              <label class="block font-semibold mb-1">Calories</label>
+              <label class="block text-sm font-semibold mb-1">
+                <span class="pi pi-heart"></span>
+                Calories
+              </label>
               <input
                 pInputText
                 type="number"
@@ -254,7 +266,10 @@
       <div class="flex flex-col">
         <!-- Ingredients -->
         <div formArrayName="ingredients" class="space-y-2">
-          <h3 class="text-lg font-bold text-emerald-400">Ingredients</h3>
+          <h3 class="text-lg font-bold text-emerald-400">
+            <span class="pi pi-shopping-cart"></span>
+            Ingredients
+          </h3>
           <div
             *ngFor="let ing of ingredients.controls; let i = index"
             class="flex gap-2"
@@ -284,7 +299,10 @@
 
         <!-- Instructions -->
         <div formArrayName="instructions" class="space-y-2">
-          <h3 class="text-lg font-bold text-emerald-400 mt-4">Instructions</h3>
+          <h3 class="text-lg font-bold text-emerald-400 mt-4">
+            <span class="pi pi-list-check"></span>
+            Instructions
+          </h3>
           <div
             *ngFor="let step of instructions.controls; let i = index"
             class="flex gap-2"
@@ -313,12 +331,19 @@
         </div>
 
         <!-- Save -->
-        <div class="mt-6 float-end">
+        <div class="mt-6 flex gap-4">
           <button
             pButton
             type="button"
             label="Save Changes"
             (click)="saveChanges()"
+          ></button>
+          <button
+            pButton
+            type="button"
+            label="Cancel Changes"
+            severity="danger"
+            (click)="cancelChanges()"
           ></button>
         </div>
       </div>

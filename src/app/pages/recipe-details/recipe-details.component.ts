@@ -155,4 +155,42 @@ export class RecipeDetailsComponent {
       console.log('Recipe update succesfull', updatedRecipe);
     }
   }
+
+  cancelChanges() {
+    if (this.recipe) {
+      // Reset form to original recipe values
+      this.recipeForm.reset({
+        name: this.recipe.name,
+        description: this.recipe.description,
+        prepTimeMinutes: this.recipe.prepTimeMinutes,
+        cookTimeMinutes: this.recipe.cookTimeMinutes,
+        servings: this.recipe.servings,
+        caloriesPerServing: this.recipe.caloriesPerServing,
+        image: this.recipe.image,
+        ingredients: this.recipe.ingredients.slice(),
+        instructions: this.recipe.instructions.slice(),
+      });
+
+      // Reset FormArrays for ingredients and instructions
+      this.recipeForm.setControl(
+        'ingredients',
+        this.fb.array(
+          this.recipe.ingredients.map((i) =>
+            this.fb.control(i, Validators.required)
+          )
+        )
+      );
+      this.recipeForm.setControl(
+        'instructions',
+        this.fb.array(
+          this.recipe.instructions.map((i) =>
+            this.fb.control(i, Validators.required)
+          )
+        )
+      );
+
+      // Close edit mode
+      this.editMode = false;
+    }
+  }
 }
