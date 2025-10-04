@@ -4,7 +4,7 @@
 
     <form
       [formGroup]="recipeForm"
-      (ngSubmit)="submit()"
+      (ngSubmit)="add($event)"
       class="flex flex-col gap-6"
     >
       <!-- Name -->
@@ -365,7 +365,10 @@
           </p-button>
         </div>
       </div>
+
       <!-- Submit -->
+      <p-toast position="bottom-right" />
+      <p-confirm-dialog />
       <button pButton type="submit" label="Submit Recipe" class="mt-4"></button>
     </form>
   </div>

@@ -15,6 +15,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { DividerModule } from 'primeng/divider';
 import { RecipesService } from '../../services/recipes.service';
 import { NewRecipeFormData } from '../../interfaces/recipe';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-recipe',
@@ -28,13 +32,37 @@ import { NewRecipeFormData } from '../../interfaces/recipe';
     TagModule,
     FileUploadModule,
     DividerModule,
+    ConfirmDialog,
+    ToastModule,
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './add-recipe.component.html',
 })
 export class AddRecipeComponent {
   recipeForm: FormGroup;
+  private cleanFormState: any = {
+    name: '',
+    description: '',
+    ingredients: [''], // One empty control for initial state
+    instructions: [''],
+    prepTimeMinutes: null,
+    cookTimeMinutes: null,
+    servings: null,
+    caloriesPerServing: null,
+    difficulty: '',
+    cuisine: '',
+    tags: [''],
+    image: '',
+    mealType: [''],
+  };
 
-  constructor(private RecipeService: RecipesService, private fb: FormBuilder) {
+  constructor(
+    private RecipeService: RecipesService,
+    private fb: FormBuilder,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
     this.recipeForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
@@ -110,6 +138,41 @@ export class AddRecipeComponent {
     }
   }
 
+  add(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to save changes?',
+      header: 'Update recipe',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-info-circle',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Update',
+      },
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Confirmed',
+          detail: 'New recipe added',
+        });
+        this.submit();
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'Recipe submision has been canceled',
+          life: 3000,
+        });
+      },
+    });
+  }
+
   removeImage() {
     this.recipeForm.get('image')?.setValue(null);
   }
@@ -121,8 +184,7 @@ export class AddRecipeComponent {
       this.RecipeService.postRecipe(recipeData).subscribe({
         next: (newRecipe) => {
           console.log('Recipe added successfully:', newRecipe);
-          // TODO: Add success notification (e.g., PrimeNG MessageService)
-          // TODO: Navigate the user away, e.g., to the new recipe page or the list page
+          this.recipeForm.reset(this.cleanFormState);
         },
         error: (err) => {
           console.error('Error adding recipe:', err);
