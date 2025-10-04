@@ -1,0 +1,24 @@
+<div
+  *ngIf="recipes.length > 0; else noResults"
+  class="mb-4 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"
+>
+  <app-recipe-card
+    *ngFor="let recipe of recipes"
+    [recipe]="recipe"
+    (favoriteToggled)="onFavorite($event)"
+  ></app-recipe-card>
+</div>
+
+<ng-template #noResults>
+  <div
+    class="flex flex-col items-center justify-center text-center mt-12 text-gray-400"
+  >
+    <p class="text-xl font-semibold mb-2 flex items-center gap-2">
+      <i class="pi pi-search text-5xl text-emerald-500"></i>
+      No recipes <span>found</span>
+    </p>
+    <p class="text-sm text-gray-500">
+      Try adjusting your search — check spelling or use different keywords.
+    </p>
+  </div>
+</ng-template>

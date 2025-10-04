@@ -1,21 +1,14 @@
 import { Component } from '@angular/core';
-import { RecipesService } from '../../services/recipes.service';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
 import { Recipe } from '../../interfaces/recipe';
-import { RouterLink } from '@angular/router';
+import { RecipesService } from '../../services/recipes.service';
 import { SearchComponent } from '../../components/search/search.component';
+import { RecipeListComponent } from '../../components/recipe-list/recipe-list.component';
 
 @Component({
   selector: 'app-homepage',
-  imports: [
-    CommonModule,
-    CardModule,
-    ButtonModule,
-    RouterLink,
-    SearchComponent,
-  ],
+  standalone: true,
+  imports: [CommonModule, SearchComponent, RecipeListComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css',
 })
@@ -23,18 +16,25 @@ export class HomepageComponent {
   recipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
 
-  constructor(private RecipeService: RecipesService) {}
+  constructor(private recipesService: RecipesService) {}
 
-  ngOnInit() {
-    this.RecipeService.getRecipes().subscribe((data) => {
-      console.log('Fetched recipes:', data);
-      this.recipes = data;
-      this.filteredRecipes = data;
+  ngOnInit(): void {
+    this.loadRecipes();
+  }
+
+  private loadRecipes(): void {
+    this.recipesService.getRecipes().subscribe({
+      next: (data) => {
+        this.recipes = data;
+        this.filteredRecipes = data;
+      },
+      error: (err) => console.error('Failed to load recipes:', err),
     });
   }
 
-  filterRecipes(term: string) {
-    const lowerTerm = term.toLowerCase();
+  filterRecipes(term: string): void {
+    const lowerTerm = term.trim().toLowerCase();
+
     this.filteredRecipes = this.recipes.filter(
       (r) =>
         r.name.toLowerCase().includes(lowerTerm) ||
@@ -42,23 +42,17 @@ export class HomepageComponent {
     );
   }
 
-  favorite = (recipe: Recipe): void => {
-    this.RecipeService.favourtieRecipeById(
-      String(recipe.id),
-      recipe.isFavorited
-    ).subscribe({
-      next: () => {
-        const index = this.recipes.findIndex((r) => r.id === recipe.id);
-        if (index > -1) {
-          this.recipes[index].isFavorited = !this.recipes[index].isFavorited;
+  favorite(recipe: Recipe): void {
+    this.recipesService
+      .favourtieRecipeById(String(recipe.id), recipe.isFavorited)
+      .subscribe({
+        next: () => {
+          recipe.isFavorited = !recipe.isFavorited;
           console.log(
             `Recipe ${recipe.id} is now favourited: ${recipe.isFavorited}`
           );
-        }
-      },
-      error: (err) => {
-        console.error('Failed to favourite recipe:', err);
-      },
-    });
-  };
+        },
+        error: (err) => console.error('Failed to favourite recipe:', err),
+      });
+  }
 }
