@@ -17,7 +17,7 @@
       [recipe]="recipe"
       (favoriteToggled)="favorite()"
       (editRequested)="toggleEdit()"
-      (deleteRequested)="deleteRecipe()"
+      (deleteRequested)="delete($event)"
     />
 
     <ng-container *ngIf="editMode && recipeForm">
@@ -99,14 +99,14 @@
               [form]="recipeForm"
               label="Save Changes"
               logic="save"
-              (save)="onSaveChanges()"
+              (save)="save($event)"
             />
             <app-action-button
               [form]="recipeForm"
               label="Cancel Changes"
               severity="danger"
               logic="cancel"
-              (save)="onCancelChanges()"
+              (cancel)="cancel($event)"
             />
           </div>
         </div>

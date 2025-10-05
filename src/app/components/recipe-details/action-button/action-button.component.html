@@ -3,6 +3,6 @@
   type="button"
   [label]="label ? label : 'NoLabel'"
   [severity]="severity"
-  (click)="onClick()"
+  (click)="onClick($event)"
   [disabled]="logic === 'save' && form && !form.valid"
 ></button>

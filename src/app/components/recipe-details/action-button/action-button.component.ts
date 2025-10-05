@@ -14,26 +14,26 @@ export class ActionButtonComponent {
   @Input() severity!: ButtonSeverity;
   @Input() logic!: 'save' | 'cancel';
 
-  @Output() save = new EventEmitter<void>();
-  @Output() cancel = new EventEmitter<void>();
+  @Output() save = new EventEmitter<Event>();
+  @Output() cancel = new EventEmitter<Event>();
 
-  onClick() {
+  onClick(event: Event) {
     if (this.logic === 'save') {
-      this.onSave();
+      this.onSave(event);
     } else if (this.logic === 'cancel') {
-      this.onCancel();
+      this.onCancel(event);
     }
   }
 
-  onSave() {
+  onSave(event: Event) {
     if (this.form && this.form.valid) {
-      this.save.emit();
+      this.save.emit(event);
     } else if (this.form) {
       this.form.markAllAsTouched();
     }
   }
 
-  onCancel() {
-    this.cancel.emit();
+  onCancel(event: Event) {
+    this.cancel.emit(event);
   }
 }

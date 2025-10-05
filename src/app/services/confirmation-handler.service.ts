@@ -5,6 +5,12 @@ import {
   ConfirmEventType,
 } from 'primeng/api';
 
+interface ButtonConfig {
+  label: string;
+  severity?: string;
+  outlined?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,18 +20,21 @@ export class ConfirmationHandlerService {
     private messageService: MessageService
   ) {}
 
-  // --- UNIFIED CONFIRMATION FUNCTION ---
   confirmAction(
     event: Event,
     config: {
       message: string;
       header: string;
-      acceptAction: () => void; // Callback for successful confirmation
+      acceptAction: () => void;
       acceptSummary: string;
-      rejectAction?: () => void; // Optional callback for rejection
+      rejectAction?: () => void;
       rejectSummary: string;
       icon: string;
       severity: 'success' | 'info' | 'warn' | 'error';
+      acceptButtonConfig: ButtonConfig;
+      rejectButtonConfig: ButtonConfig;
+      closable?: boolean;
+      closeOnEscape?: boolean;
     }
   ) {
     this.confirmationService.confirm({
@@ -33,6 +42,11 @@ export class ConfirmationHandlerService {
       message: config.message,
       header: config.header,
       icon: config.icon,
+      closable: config.closable,
+      closeOnEscape: config.closeOnEscape,
+
+      rejectButtonProps: config.rejectButtonConfig,
+      acceptButtonProps: config.acceptButtonConfig,
 
       accept: () => {
         this.messageService.add({
@@ -43,7 +57,6 @@ export class ConfirmationHandlerService {
         config.acceptAction();
       },
       reject: (type: ConfirmEventType) => {
-        // Execute optional reject action only if it exists
         if (type !== ConfirmEventType.REJECT && config.rejectAction) {
           config.rejectAction();
         }

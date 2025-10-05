@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../../interfaces/recipe';
 import { RecipesService } from '../../services/recipes.service';
 import { CardModule } from 'primeng/card';
@@ -18,7 +18,6 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditImage } from '../../components/recipe-details/edit-image/edit-image';
@@ -31,6 +30,7 @@ import { ActionButtonComponent } from '../../components/recipe-details/action-bu
 import { DetailsViewComponent } from '../../components/recipe-details/details-view/details-view.component';
 import { ConfirmationHandlerService } from '../../services/confirmation-handler.service';
 import { RecipeFormService } from '../../services/recipe-form.service';
+import { RecipeAPIService } from '../../services/recipe-api.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -55,7 +55,7 @@ import { RecipeFormService } from '../../services/recipe-form.service';
     ActionButtonComponent,
     DetailsViewComponent,
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService, ConfirmationHandlerService],
   templateUrl: './recipe-details.component.html',
   styleUrl: './recipe-details.component.css',
 })
@@ -70,11 +70,9 @@ export class RecipeDetailsComponent {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private RecipeService: RecipesService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService,
     private formService: RecipeFormService,
+    private apiActions: RecipeAPIService,
     private confirmHandler: ConfirmationHandlerService
   ) {}
 
@@ -101,18 +99,44 @@ export class RecipeDetailsComponent {
   }
 
   favorite = () => {
-    this.RecipeService.favourtieRecipeById(
-      this.recipeId,
-      this.recipe?.isFavorited
-    ).subscribe({
-      next: (updatedRecipe) => {
-        this.recipe = updatedRecipe;
-      },
-      error: (err) => {
-        console.error('Failed to favourite recipe:', err);
-      },
-    });
+    this.apiActions
+      .favorite(this.recipeId, this.recipe?.isFavorited)
+      .subscribe({
+        next: (updatedRecipe) => {
+          this.recipe = updatedRecipe;
+        },
+        error: (err) => {
+          console.error('Failed to favourite recipe:', err);
+        },
+      });
   };
+
+  saveChanges() {
+    if (this.recipeForm.valid) {
+      this.apiActions
+        .saveChanges(this.recipeId, this.recipeForm, this.recipe)
+        .subscribe({
+          next: (updatedRecipe) => {
+            this.recipe = updatedRecipe;
+            this.editMode = false;
+          },
+          error: (err) => {
+            console.error('Failed to update recipe:', err);
+          },
+        });
+    }
+  }
+
+  cancelChanges() {
+    if (this.recipe) {
+      this.apiActions.cancelChanges(this.recipeForm, this.recipe);
+      this.editMode = false;
+    }
+  }
+
+  deleteRecipe() {
+    this.apiActions.deleteRecipe(this.recipeId);
+  }
 
   addIngredient() {
     this.ingredients.push(this.fb.control(''));
@@ -134,20 +158,6 @@ export class RecipeDetailsComponent {
     this.editMode = !this.editMode;
   }
 
-  deleteRecipe() {
-    this.RecipeService.deleteRecipe(this.recipeId).subscribe({
-      next: () => {
-        console.log('Recipe removed successfully!');
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 600);
-      },
-      error: (err) => {
-        console.error('Failed to remove recipe', err);
-      },
-    });
-  }
-
   save(event: Event) {
     this.confirmHandler.confirmAction(event, {
       message: 'Are you sure you want to save changes?',
@@ -158,6 +168,16 @@ export class RecipeDetailsComponent {
       rejectSummary: 'Update canceled',
       acceptAction: () => this.saveChanges(),
       rejectAction: () => (this.editMode = false),
+
+      acceptButtonConfig: {
+        label: 'Update',
+        severity: 'success',
+      },
+      rejectButtonConfig: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
     });
   }
 
@@ -170,6 +190,16 @@ export class RecipeDetailsComponent {
       acceptSummary: 'Recipe edit canceled',
       rejectSummary: 'You have rejected',
       acceptAction: () => this.cancelChanges(),
+
+      acceptButtonConfig: {
+        label: 'Yes',
+        severity: 'danger',
+      },
+      rejectButtonConfig: {
+        label: 'No',
+        severity: 'secondary',
+        outlined: true,
+      },
     });
   }
   delete(event: Event) {
@@ -181,6 +211,15 @@ export class RecipeDetailsComponent {
       acceptSummary: 'Recipe has been deleted',
       rejectSummary: 'Recipe deletion rejected',
       acceptAction: () => this.deleteRecipe(),
+
+      acceptButtonConfig: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+      rejectButtonConfig: {
+        label: 'Cancel',
+        severity: 'success',
+      },
     });
   }
 
@@ -236,68 +275,5 @@ export class RecipeDetailsComponent {
 
   removeImage(): void {
     this.recipeForm.get('image')?.setValue(null);
-  }
-
-  saveChanges() {
-    if (this.recipeForm.valid) {
-      const updatedRecipe = {
-        ...this.recipe,
-        ...this.recipeForm.value,
-      };
-      console.log('Recipe update succesfull', updatedRecipe);
-
-      this.RecipeService.updateRecipe(this.recipeId, updatedRecipe).subscribe({
-        next: (updatedRecipe) => {
-          this.recipe = updatedRecipe;
-          this.editMode = false;
-        },
-        error: (err) => {
-          console.error('Failed to update recipe:', err);
-        },
-      });
-    }
-  }
-
-  cancelChanges() {
-    if (this.recipe) {
-      this.recipeForm.reset({
-        name: this.recipe.name,
-        description: this.recipe.description,
-        prepTimeMinutes: this.recipe.prepTimeMinutes,
-        cookTimeMinutes: this.recipe.cookTimeMinutes,
-        servings: this.recipe.servings,
-        caloriesPerServing: this.recipe.caloriesPerServing,
-        image: this.recipe.image,
-        ingredients: this.recipe.ingredients.slice(),
-        instructions: this.recipe.instructions.slice(),
-      });
-
-      this.recipeForm.setControl(
-        'ingredients',
-        this.fb.array(
-          this.recipe.ingredients.map((i) =>
-            this.fb.control(i, Validators.required)
-          )
-        )
-      );
-      this.recipeForm.setControl(
-        'instructions',
-        this.fb.array(
-          this.recipe.instructions.map((i) =>
-            this.fb.control(i, Validators.required)
-          )
-        )
-      );
-
-      this.editMode = false;
-    }
-  }
-
-  onSaveChanges() {
-    this.saveChanges();
-  }
-
-  onCancelChanges() {
-    this.cancelChanges();
   }
 }
