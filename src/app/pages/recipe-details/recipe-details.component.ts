@@ -25,6 +25,8 @@ import { EditImage } from '../../components/recipe-details/edit-image/edit-image
 import { TextInputComponent } from '../../components/add-recipe/text-input/text-input.component';
 import { TextareaInputComponent } from '../../components/add-recipe/textarea-input/textarea-input.component';
 import { NumberInputComponent } from '../../components/add-recipe/number-input/number-input.component';
+import { IngredientsFormComponent } from '../../components/add-recipe/ingredients-form/ingredients-form.component';
+import { InstructionsFormComponent } from '../../components/add-recipe/instructions-form/instructions-form.component';
 
 @Component({
   selector: 'app-recipe-details',
@@ -44,6 +46,8 @@ import { NumberInputComponent } from '../../components/add-recipe/number-input/n
     TextInputComponent,
     TextareaInputComponent,
     NumberInputComponent,
+    IngredientsFormComponent,
+    InstructionsFormComponent,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './recipe-details.component.html',

@@ -166,7 +166,7 @@
                 label="Description"
                 placeholder="Describe your recipe"
                 icon="pi pi-align-left"
-              ></app-textarea-input>
+              />
             </div>
 
             <!-- Timings -->
@@ -175,23 +175,22 @@
                 [control]="prepTimeControl"
                 label="Prep Time (minutes)"
                 icon="pi pi-clock"
-              ></app-number-input>
-
+              />
               <app-number-input
                 [control]="cookTimeControl"
                 label="Cook Time (minutes)"
                 icon="pi pi-stopwatch"
-              ></app-number-input>
-              <<app-number-input
+              />
+              <app-number-input
                 [control]="servingsControl"
                 label="Servings"
                 icon="pi pi-users"
-              ></app-number-input>
+              />
               <app-number-input
                 [control]="caloriesPerServingControl"
                 label="Calories Per Serving"
                 icon="pi pi-heart"
-              ></app-number-input>
+              />
             </div>
           </div>
         </div>
@@ -199,70 +198,17 @@
         <!-- Form bottom side -->
         <div class="flex flex-col">
           <!-- Ingredients -->
-          <div formArrayName="ingredients" class="space-y-2">
-            <h3 class="text-lg font-bold text-emerald-400">
-              <span class="pi pi-shopping-cart"></span>
-              Ingredients
-            </h3>
-            <div
-              *ngFor="let ing of ingredients.controls; let i = index"
-              class="flex gap-2"
-            >
-              <input
-                pInputText
-                [formControlName]="i"
-                class="flex-1"
-                placeholder="Ingredient"
-              />
-              <button
-                pButton
-                icon="pi pi-times"
-                type="button"
-                severity="danger"
-                (click)="removeIngredient(i)"
-              ></button>
-            </div>
-            <button
-              pButton
-              label="Add Ingredient"
-              icon="pi pi-plus"
-              type="button"
-              (click)="addIngredient()"
-            ></button>
-          </div>
+          <app-ingredients-form
+            [ingredients]="ingredients"
+            (add)="addIngredient()"
+            (remove)="removeIngredient($event)"
+          ></app-ingredients-form>
 
-          <!-- Instructions -->
-          <div formArrayName="instructions" class="space-y-2">
-            <h3 class="text-lg font-bold text-emerald-400 mt-4">
-              <span class="pi pi-list-check"></span>
-              Instructions
-            </h3>
-            <div
-              *ngFor="let step of instructions.controls; let i = index"
-              class="flex gap-2"
-            >
-              <input
-                pInputText
-                [formControlName]="i"
-                class="flex-1"
-                placeholder="Step"
-              />
-              <button
-                pButton
-                icon="pi pi-times"
-                type="button"
-                severity="danger"
-                (click)="removeInstruction(i)"
-              ></button>
-            </div>
-            <button
-              pButton
-              label="Add Step"
-              icon="pi pi-plus"
-              type="button"
-              (click)="addInstruction()"
-            ></button>
-          </div>
+          <app-instructions-form
+            [instructions]="instructions"
+            (add)="addInstruction()"
+            (remove)="removeInstruction($event)"
+          ></app-instructions-form>
 
           <!-- Save -->
           <div class="mt-6 flex gap-4">
