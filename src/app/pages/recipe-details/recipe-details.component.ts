@@ -30,6 +30,7 @@ import { InstructionsFormComponent } from '../../components/add-recipe/instructi
 import { ActionButtonComponent } from '../../components/recipe-details/action-button/action-button.component';
 import { DetailsViewComponent } from '../../components/recipe-details/details-view/details-view.component';
 import { ConfirmationHandlerService } from '../../services/confirmation-handler.service';
+import { RecipeFormService } from '../../services/recipe-form.service';
 
 @Component({
   selector: 'app-recipe-details',
@@ -73,6 +74,7 @@ export class RecipeDetailsComponent {
     private RecipeService: RecipesService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private formService: RecipeFormService,
     private confirmHandler: ConfirmationHandlerService
   ) {}
 
@@ -95,27 +97,7 @@ export class RecipeDetailsComponent {
   }
 
   initForm(recipe: Recipe) {
-    this.recipeForm = this.fb.group({
-      name: [recipe.name, Validators.required],
-      image: [recipe.image, Validators.required],
-      description: [recipe.description, Validators.required],
-      prepTimeMinutes: [
-        recipe.prepTimeMinutes,
-        [Validators.required, Validators.min(1)],
-      ],
-      cookTimeMinutes: [
-        recipe.cookTimeMinutes,
-        [Validators.required, Validators.min(1)],
-      ],
-      servings: [recipe.servings, Validators.required],
-      caloriesPerServing: [recipe.caloriesPerServing, Validators.required],
-      ingredients: this.fb.array(
-        recipe.ingredients.map((i) => this.fb.control(i, Validators.required))
-      ),
-      instructions: this.fb.array(
-        recipe.instructions.map((i) => this.fb.control(i, Validators.required))
-      ),
-    });
+    this.recipeForm = this.formService.initForm(recipe);
   }
 
   favorite = () => {
