@@ -35,7 +35,7 @@
           />
 
           <div class="flex flex-col p-2 justify-between">
-            <div>
+            <div class="flex flex-col gap-2">
               <app-text-input
                 [control]="nameControl"
                 label="Title"
@@ -55,12 +55,12 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <app-number-input
                 [control]="prepTimeControl"
-                label="Prep Time (minutes)"
+                label="Prep Time"
                 icon="pi pi-clock"
               />
               <app-number-input
                 [control]="cookTimeControl"
-                label="Cook Time (minutes)"
+                label="Cook Time"
                 icon="pi pi-stopwatch"
               />
               <app-number-input
@@ -70,7 +70,7 @@
               />
               <app-number-input
                 [control]="caloriesPerServingControl"
-                label="Calories Per Serving"
+                label="Calories"
                 icon="pi pi-heart"
               />
             </div>
@@ -78,7 +78,7 @@
         </div>
 
         <!-- Form bottom side -->
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-6">
           <!-- Ingredients -->
           <app-ingredients-form
             [ingredients]="ingredients"
