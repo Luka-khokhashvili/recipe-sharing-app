@@ -1,4 +1,4 @@
-<section class="p-6 mt-20">
+<section class="p-2 md:p-6 mt-20">
   <div class="p-6 max-w-3xl mx-auto bg-zinc-900 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold text-emerald-400 mb-6">Add New Recipe</h2>
 
@@ -51,19 +51,19 @@
       <div class="grid grid-cols-2 gap-4">
         <app-number-input
           [control]="prepTimeControl"
-          label="Prep Time (minutes)"
+          label="Prep Time"
           icon="pi pi-clock"
         ></app-number-input>
 
         <app-number-input
           [control]="cookTimeControl"
-          label="Cook Time (minutes)"
+          label="Cook Time"
           icon="pi pi-stopwatch"
         ></app-number-input>
       </div>
 
       <!-- Other Details -->
-      <div class="grid grid-cols-4 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <app-number-input
           [control]="servingsControl"
           label="Servings"
@@ -71,7 +71,7 @@
         ></app-number-input>
         <app-number-input
           [control]="caloriesPerServingControl"
-          label="Calories Per Serving"
+          label="Calories"
           icon="pi pi-heart"
         ></app-number-input>
         <app-text-input
@@ -88,15 +88,15 @@
 
       <!-- Image Upload -->
       <app-image-upload
-        [image]="recipeForm.value.image"
+        [image]="recipeForm.get('image')?.value"
         (imageChange)="onImageUpload($event)"
         (remove)="removeImage()"
       ></app-image-upload>
 
       <!-- Submit -->
-      <p-toast position="bottom-right" />
-      <p-confirm-dialog />
-      <button pButton type="submit" label="Submit Recipe" class="mt-4"></button>
+      <p-toast position="bottom-right" class="hidden"/>
+      <p-confirm-dialog class="hidden"/>
+      <button pButton type="submit" label="Submit Recipe" class="mt-0 md:mt-4"></button>
     </form>
   </div>
 </section>

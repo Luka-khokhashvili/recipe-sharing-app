@@ -20,16 +20,14 @@ export class ImageUploadComponent {
 
     const reader = new FileReader();
     reader.onload = () => {
+      this.image = reader.result as string;
       this.imageChange.emit(reader.result as string);
     };
     reader.readAsDataURL(file);
   }
 
-  triggerUpload(fileInput: HTMLInputElement) {
-    fileInput.click();
-  }
-
   removeImage() {
+    this.image = '';
     this.remove.emit();
   }
 }

@@ -5,22 +5,14 @@
 
   <!-- Upload Button -->
   <div *ngIf="!image" class="relative group">
-    <input
-      type="file"
-      #fileInput
-      accept="image/*"
-      (change)="onFileSelected($event)"
-      class="hidden"
-    />
-
     <button
       pButton
       type="button"
       icon="pi pi-upload"
       class="transition-all duration-300 bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg flex items-center gap-2"
-      (click)="triggerUpload(fileInput)"
+      (click)="fileInput.click()"
     >
-      <span class="hidden group-hover:inline">Upload</span>
+      <span class="inline md:hidden group-hover:md:inline">Upload</span>
     </button>
   </div>
 
@@ -29,14 +21,25 @@
     <img
       [src]="image"
       alt="Preview"
-      class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-[1.02]"
+      class="w-full h-auto rounded shadow-md transition-transform duration-300"
     />
-    <button
-      pButton
-      icon="pi pi-times"
-      class="p-button-danger absolute top-2 right-2 opacity-90 hover:opacity-100"
-      (click)="removeImage()"
-      aria-label="Remove Image"
-    ></button>
+    <div class="absolute top-2 right-2">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-times"
+        severity="danger"
+        (click)="removeImage()"
+        aria-label="Remove Image"
+      ></button>
+    </div>
   </div>
+
+  <input
+    type="file"
+    #fileInput
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    class="hidden"
+  />
 </div>
