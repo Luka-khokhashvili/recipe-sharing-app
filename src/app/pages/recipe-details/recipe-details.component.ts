@@ -211,6 +211,7 @@ export class RecipeDetailsComponent {
       acceptSummary: 'Recipe has been deleted',
       rejectSummary: 'Recipe deletion rejected',
       acceptAction: () => this.deleteRecipe(),
+      width: 'min(90vw, 400px)',
 
       acceptButtonConfig: {
         label: 'Delete',

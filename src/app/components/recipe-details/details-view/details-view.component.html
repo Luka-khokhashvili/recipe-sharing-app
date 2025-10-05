@@ -46,29 +46,17 @@
                 class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
               ></i>
               <span
-                class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
+                class="opacity-100 md:opacity-0 max-w-[60px] md:max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
               >
                 Edit
               </span>
             </button>
           </div>
-          <div class="group relative inline-block transition-all">
+          <div>
             <p-confirmdialog />
 
-            <button
-              pButton
-              severity="danger"
-              class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
-              (click)="onDelete($event)"
-            >
-              <i
-                class="pi pi-trash text-lg transition-transform duration-300 group-hover:translate-x-1"
-              ></i>
-              <span
-                class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
-              >
-                Delete
-              </span>
+            <button pButton class="!block" severity="danger" (click)="onDelete($event)">
+              <i class="pi pi-trash"></i>
             </button>
           </div>
         </div>

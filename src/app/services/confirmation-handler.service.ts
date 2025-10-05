@@ -35,6 +35,8 @@ export class ConfirmationHandlerService {
       rejectButtonConfig: ButtonConfig;
       closable?: boolean;
       closeOnEscape?: boolean;
+
+      width?: string;
     }
   ) {
     this.confirmationService.confirm({

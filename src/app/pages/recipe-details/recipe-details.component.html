@@ -113,6 +113,9 @@
       </form>
     </ng-container>
     <!-- Pop up notifications -->
-    <p-toast position="bottom-right" />
+    <p-toast
+      position="bottom-right"
+      [breakpoints]="{ '425px': { width: '90%', right: '5%', left: '5%' } }"
+    />
   </div>
 </div>
