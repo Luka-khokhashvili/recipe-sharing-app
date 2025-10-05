@@ -1,8 +1,8 @@
 <button
   pButton
   type="button"
-  [label]="label"
-  (severity)="(severity)"
+  [label]="label ? label : 'NoLabel'"
+  [severity]="severity"
   (click)="onClick()"
   [disabled]="logic === 'save' && form && !form.valid"
 ></button>

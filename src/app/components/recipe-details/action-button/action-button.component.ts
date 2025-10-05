@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ButtonDirective } from 'primeng/button';
+import { ButtonModule, ButtonSeverity } from 'primeng/button';
 
 @Component({
   selector: 'app-action-button',
-  imports: [ButtonDirective],
+  imports: [ButtonModule],
   templateUrl: './action-button.component.html',
   styleUrl: './action-button.component.css',
 })
 export class ActionButtonComponent {
   @Input() form?: FormGroup;
-  @Input() label!: string;
-  @Input() severity!: string;
+  @Input() label?: string;
+  @Input() severity!: ButtonSeverity;
   @Input() logic!: 'save' | 'cancel';
 
   @Output() save = new EventEmitter<void>();
