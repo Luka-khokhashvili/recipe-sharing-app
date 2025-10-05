@@ -213,19 +213,20 @@
           <!-- Save -->
           <div class="mt-6 flex gap-4">
             <p-confirmdialog />
-            <button
-              pButton
-              type="button"
-              label="Save Changes"
-              (click)="save($event)"
-            ></button>
-            <button
-              pButton
-              type="button"
-              label="Cancel Changes"
+            <app-action-button
+              [form]="recipeForm"
+              lable="Save Changes"
+              severity="success"
+              logic="save"
+              (save)="onSaveChanges()"
+            />
+            <app-action-button
+              [form]="recipeForm"
+              lable="Cancel Changes"
               severity="danger"
-              (click)="cancel($event)"
-            ></button>
+              logic="cancel"
+              (save)="onCancelChanges()"
+            />
           </div>
         </div>
       </form>

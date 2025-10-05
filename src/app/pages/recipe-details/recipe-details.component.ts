@@ -27,6 +27,7 @@ import { TextareaInputComponent } from '../../components/add-recipe/textarea-inp
 import { NumberInputComponent } from '../../components/add-recipe/number-input/number-input.component';
 import { IngredientsFormComponent } from '../../components/add-recipe/ingredients-form/ingredients-form.component';
 import { InstructionsFormComponent } from '../../components/add-recipe/instructions-form/instructions-form.component';
+import { ActionButtonComponent } from '../../components/recipe-details/action-button/action-button.component';
 
 @Component({
   selector: 'app-recipe-details',
@@ -48,6 +49,7 @@ import { InstructionsFormComponent } from '../../components/add-recipe/instructi
     NumberInputComponent,
     IngredientsFormComponent,
     InstructionsFormComponent,
+    ActionButtonComponent,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './recipe-details.component.html',
@@ -373,5 +375,13 @@ export class RecipeDetailsComponent {
 
       this.editMode = false;
     }
+  }
+
+  onSaveChanges() {
+    this.saveChanges();
+  }
+
+  onCancelChanges() {
+    this.cancelChanges();
   }
 }
