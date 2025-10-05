@@ -1,5 +1,5 @@
 <div
-  class="p-6 mt-20 max-w-5xl md:max-w-screen mx-auto flex flex-col md:flex-row gap-8"
+  class="p-2 md:p-6 mt-20 max-w-5xl md:max-w-screen mx-auto flex flex-col md:flex-row gap-8"
 >
   <!-- Image -->
   <div *ngIf="!editMode" class="hidden xl:block">
@@ -27,14 +27,14 @@
         class="space-y-8 bg-gray-800 p-6 rounded-lg"
       >
         <!-- Form top side -->
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-1 md:grid-cols-2">
           <app-edit-image
             [image]="recipeForm.value.image"
             (imageChange)="onImageUpload($event)"
             (remove)="removeImage()"
           />
 
-          <div class="flex flex-col p-2 justify-between">
+          <div class="flex flex-col p-2 justify-between gap-5 md:gap-0">
             <div class="flex flex-col gap-2">
               <app-text-input
                 [control]="nameControl"
@@ -93,7 +93,7 @@
           ></app-instructions-form>
 
           <!-- Save -->
-          <div class="mt-6 flex gap-4">
+          <div class="mt-6 flex flex-col md:flex-row gap-4">
             <p-confirmdialog />
             <app-action-button
               [form]="recipeForm"
