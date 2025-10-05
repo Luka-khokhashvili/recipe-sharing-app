@@ -15,12 +15,16 @@ import { ToastModule } from 'primeng/toast';
 import {
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { EditImage } from '../../components/recipe-details/edit-image/edit-image';
+import { TextInputComponent } from '../../components/add-recipe/text-input/text-input.component';
+import { TextareaInputComponent } from '../../components/add-recipe/textarea-input/textarea-input.component';
+import { NumberInputComponent } from '../../components/add-recipe/number-input/number-input.component';
 
 @Component({
   selector: 'app-recipe-details',
@@ -37,6 +41,9 @@ import { EditImage } from '../../components/recipe-details/edit-image/edit-image
     ConfirmDialog,
     ToastModule,
     EditImage,
+    TextInputComponent,
+    TextareaInputComponent,
+    NumberInputComponent,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './recipe-details.component.html',
@@ -114,14 +121,6 @@ export class RecipeDetailsComponent {
       },
     });
   };
-
-  get ingredients() {
-    return this.recipeForm.get('ingredients') as FormArray;
-  }
-
-  get instructions() {
-    return this.recipeForm.get('instructions') as FormArray;
-  }
 
   addIngredient() {
     this.ingredients.push(this.fb.control(''));
@@ -261,6 +260,52 @@ export class RecipeDetailsComponent {
         });
       },
     });
+  }
+
+  private getControl(name: string): FormControl {
+    return this.recipeForm.get(name) as FormControl;
+  }
+
+  private getArray(name: string): FormArray {
+    return this.recipeForm.get(name) as FormArray;
+  }
+
+  get nameControl(): FormControl {
+    return this.getControl('name');
+  }
+  get descriptionControl(): FormControl {
+    return this.getControl('description');
+  }
+  get prepTimeControl(): FormControl {
+    return this.getControl('prepTimeMinutes');
+  }
+  get cookTimeControl(): FormControl {
+    return this.getControl('cookTimeMinutes');
+  }
+  get servingsControl(): FormControl {
+    return this.getControl('servings');
+  }
+  get caloriesPerServingControl(): FormControl {
+    return this.getControl('caloriesPerServing');
+  }
+  get difficultyControl(): FormControl {
+    return this.getControl('difficulty');
+  }
+  get cuisineControl(): FormControl {
+    return this.getControl('cuisine');
+  }
+
+  get ingredients() {
+    return this.getArray('ingredients');
+  }
+  get instructions() {
+    return this.getArray('instructions');
+  }
+  get tags() {
+    return this.getArray('tags');
+  }
+  get mealType() {
+    return this.getArray('mealType');
   }
 
   onImageUpload(base64Image: string): void {

@@ -154,101 +154,44 @@
 
           <div class="flex flex-col p-2 justify-between">
             <div>
-              <div
-                class="group relative w-full flex justify-between transition-all"
-              >
-                <!-- Editable name -->
-                <div class="flex items-center gap-2">
-                  <label class="block font-semibold mb-1 text-emerald-400"
-                    >Name</label
-                  >
-                  <input
-                    type="text"
-                    pInputText
-                    formControlName="name"
-                    class="text-2xl font-bold text-emerald-500 bg-transparent border-none w-full"
-                  />
-                </div>
-                <button
-                  pButton
-                  class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
-                  (click)="toggleEdit()"
-                >
-                  <i
-                    class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
-                  ></i>
-                  <span
-                    class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
-                  >
-                    Cancel
-                  </span>
-                </button>
-              </div>
+              <app-text-input
+                [control]="nameControl"
+                label="Title"
+                placeholder="Recipe name"
+                icon="pi pi-book"
+              />
               <!-- Description -->
-              <div>
-                <label class="block font-semibold mb-1 text-emerald-400"
-                  >Description</label
-                >
-                <textarea
-                  pInputText
-                  formControlName="description"
-                  rows="3"
-                  class="w-full min-h-[80px] max-h-[163px]"
-                  placeholder="Recipe description"
-                ></textarea>
-              </div>
+              <app-textarea-input
+                [control]="descriptionControl"
+                label="Description"
+                placeholder="Describe your recipe"
+                icon="pi pi-align-left"
+              ></app-textarea-input>
             </div>
 
             <!-- Timings -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div>
-                <label class="block text-sm font-semibold mb-1">
-                  <span class="pi pi-clock"></span>
-                  Prep Time
-                </label>
-                <input
-                  pInputText
-                  type="number"
-                  formControlName="prepTimeMinutes"
-                  class="w-full"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-semibold mb-1">
-                  <span class="pi pi-chevron-circle-left"></span>
-                  Cook Time
-                </label>
-                <input
-                  pInputText
-                  type="number"
-                  formControlName="cookTimeMinutes"
-                  class="w-full"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-semibold mb-1">
-                  <span class="pi pi-users"></span>
-                  Servings
-                </label>
-                <input
-                  pInputText
-                  type="number"
-                  formControlName="servings"
-                  class="w-full"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-semibold mb-1">
-                  <span class="pi pi-heart"></span>
-                  Calories
-                </label>
-                <input
-                  pInputText
-                  type="number"
-                  formControlName="caloriesPerServing"
-                  class="w-full"
-                />
-              </div>
+              <app-number-input
+                [control]="prepTimeControl"
+                label="Prep Time (minutes)"
+                icon="pi pi-clock"
+              ></app-number-input>
+
+              <app-number-input
+                [control]="cookTimeControl"
+                label="Cook Time (minutes)"
+                icon="pi pi-stopwatch"
+              ></app-number-input>
+              <<app-number-input
+                [control]="servingsControl"
+                label="Servings"
+                icon="pi pi-users"
+              ></app-number-input>
+              <app-number-input
+                [control]="caloriesPerServingControl"
+                label="Calories Per Serving"
+                icon="pi pi-heart"
+              ></app-number-input>
             </div>
           </div>
         </div>
