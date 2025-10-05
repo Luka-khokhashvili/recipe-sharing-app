@@ -138,238 +138,209 @@
       </div>
     </div>
 
-    <!-- Reactive Form -->
-    <form
-      *ngIf="editMode && recipeForm"
-      [formGroup]="recipeForm"
-      class="space-y-8 bg-gray-800 p-6 rounded-lg"
-    >
-      <!-- Form top side -->
-      <div class="grid grid-cols-2">
-        <div class="relative flex flex-col items-center xl:block">
-          <!-- Image preview -->
-          <img
-            [src]="recipeForm.get('image')?.value"
-            [alt]="recipeForm.get('name')?.value"
-            class="w-full rounded-xl shadow-md object-cover max-h-[400px] xl:max-h-[900px]"
+    <ng-container *ngIf="editMode && recipeForm">
+      <!-- Reactive Form -->
+      <form
+        [formGroup]="recipeForm"
+        class="space-y-8 bg-gray-800 p-6 rounded-lg"
+      >
+        <!-- Form top side -->
+        <div class="grid grid-cols-2">
+          <app-edit-image
+            [image]="recipeForm.value.image"
+            (imageChange)="onImageUpload($event)"
+            (remove)="removeImage()"
           />
 
-          <!-- Hidden file input -->
-          <input
-            type="file"
-            accept="image/*"
-            #fileInput
-            class="hidden"
-            (change)="onImageSelected($event)"
-          />
-
-          <!-- Styled upload button -->
-          <button
-            type="button"
-            (click)="fileInput.click()"
-            pButton
-            class="!absolute top-2 right-2 flex items-center bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 group"
-          >
-            <i
-              class="pi pi-upload text-lg transition-transform duration-300 group-hover:translate-x-1"
-            ></i>
-            <span
-              class="ml-2 opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[80px]"
-            >
-              Choose
-            </span>
-          </button>
-        </div>
-
-        <div class="flex flex-col p-2 justify-between">
-          <div>
-            <div
-              class="group relative w-full flex justify-between transition-all"
-            >
-              <!-- Editable name -->
-              <div class="flex items-center gap-2">
-                <label class="block font-semibold mb-1 text-emerald-400"
-                  >Name</label
+          <div class="flex flex-col p-2 justify-between">
+            <div>
+              <div
+                class="group relative w-full flex justify-between transition-all"
+              >
+                <!-- Editable name -->
+                <div class="flex items-center gap-2">
+                  <label class="block font-semibold mb-1 text-emerald-400"
+                    >Name</label
+                  >
+                  <input
+                    type="text"
+                    pInputText
+                    formControlName="name"
+                    class="text-2xl font-bold text-emerald-500 bg-transparent border-none w-full"
+                  />
+                </div>
+                <button
+                  pButton
+                  class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
+                  (click)="toggleEdit()"
                 >
-                <input
-                  type="text"
+                  <i
+                    class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
+                  ></i>
+                  <span
+                    class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
+                  >
+                    Cancel
+                  </span>
+                </button>
+              </div>
+              <!-- Description -->
+              <div>
+                <label class="block font-semibold mb-1 text-emerald-400"
+                  >Description</label
+                >
+                <textarea
                   pInputText
-                  formControlName="name"
-                  class="text-2xl font-bold text-emerald-500 bg-transparent border-none w-full"
+                  formControlName="description"
+                  rows="3"
+                  class="w-full min-h-[80px] max-h-[163px]"
+                  placeholder="Recipe description"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Timings -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <label class="block text-sm font-semibold mb-1">
+                  <span class="pi pi-clock"></span>
+                  Prep Time
+                </label>
+                <input
+                  pInputText
+                  type="number"
+                  formControlName="prepTimeMinutes"
+                  class="w-full"
                 />
               </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1">
+                  <span class="pi pi-chevron-circle-left"></span>
+                  Cook Time
+                </label>
+                <input
+                  pInputText
+                  type="number"
+                  formControlName="cookTimeMinutes"
+                  class="w-full"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1">
+                  <span class="pi pi-users"></span>
+                  Servings
+                </label>
+                <input
+                  pInputText
+                  type="number"
+                  formControlName="servings"
+                  class="w-full"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1">
+                  <span class="pi pi-heart"></span>
+                  Calories
+                </label>
+                <input
+                  pInputText
+                  type="number"
+                  formControlName="caloriesPerServing"
+                  class="w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form bottom side -->
+        <div class="flex flex-col">
+          <!-- Ingredients -->
+          <div formArrayName="ingredients" class="space-y-2">
+            <h3 class="text-lg font-bold text-emerald-400">
+              <span class="pi pi-shopping-cart"></span>
+              Ingredients
+            </h3>
+            <div
+              *ngFor="let ing of ingredients.controls; let i = index"
+              class="flex gap-2"
+            >
+              <input
+                pInputText
+                [formControlName]="i"
+                class="flex-1"
+                placeholder="Ingredient"
+              />
               <button
                 pButton
-                class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
-                (click)="toggleEdit()"
-              >
-                <i
-                  class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
-                ></i>
-                <span
-                  class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
-                >
-                  Cancel
-                </span>
-              </button>
+                icon="pi pi-times"
+                type="button"
+                severity="danger"
+                (click)="removeIngredient(i)"
+              ></button>
             </div>
-            <!-- Description -->
-            <div>
-              <label class="block font-semibold mb-1 text-emerald-400"
-                >Description</label
-              >
-              <textarea
-                pInputText
-                formControlName="description"
-                rows="3"
-                class="w-full min-h-[80px] max-h-[163px]"
-                placeholder="Recipe description"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- Timings -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <label class="block text-sm font-semibold mb-1">
-                <span class="pi pi-clock"></span>
-                Prep Time
-              </label>
-              <input
-                pInputText
-                type="number"
-                formControlName="prepTimeMinutes"
-                class="w-full"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-semibold mb-1">
-                <span class="pi pi-chevron-circle-left"></span>
-                Cook Time
-              </label>
-              <input
-                pInputText
-                type="number"
-                formControlName="cookTimeMinutes"
-                class="w-full"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-semibold mb-1">
-                <span class="pi pi-users"></span>
-                Servings
-              </label>
-              <input
-                pInputText
-                type="number"
-                formControlName="servings"
-                class="w-full"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-semibold mb-1">
-                <span class="pi pi-heart"></span>
-                Calories
-              </label>
-              <input
-                pInputText
-                type="number"
-                formControlName="caloriesPerServing"
-                class="w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Form bottom side -->
-      <div class="flex flex-col">
-        <!-- Ingredients -->
-        <div formArrayName="ingredients" class="space-y-2">
-          <h3 class="text-lg font-bold text-emerald-400">
-            <span class="pi pi-shopping-cart"></span>
-            Ingredients
-          </h3>
-          <div
-            *ngFor="let ing of ingredients.controls; let i = index"
-            class="flex gap-2"
-          >
-            <input
-              pInputText
-              [formControlName]="i"
-              class="flex-1"
-              placeholder="Ingredient"
-            />
             <button
               pButton
-              icon="pi pi-times"
+              label="Add Ingredient"
+              icon="pi pi-plus"
               type="button"
-              severity="danger"
-              (click)="removeIngredient(i)"
+              (click)="addIngredient()"
             ></button>
           </div>
-          <button
-            pButton
-            label="Add Ingredient"
-            icon="pi pi-plus"
-            type="button"
-            (click)="addIngredient()"
-          ></button>
-        </div>
 
-        <!-- Instructions -->
-        <div formArrayName="instructions" class="space-y-2">
-          <h3 class="text-lg font-bold text-emerald-400 mt-4">
-            <span class="pi pi-list-check"></span>
-            Instructions
-          </h3>
-          <div
-            *ngFor="let step of instructions.controls; let i = index"
-            class="flex gap-2"
-          >
-            <input
-              pInputText
-              [formControlName]="i"
-              class="flex-1"
-              placeholder="Step"
-            />
+          <!-- Instructions -->
+          <div formArrayName="instructions" class="space-y-2">
+            <h3 class="text-lg font-bold text-emerald-400 mt-4">
+              <span class="pi pi-list-check"></span>
+              Instructions
+            </h3>
+            <div
+              *ngFor="let step of instructions.controls; let i = index"
+              class="flex gap-2"
+            >
+              <input
+                pInputText
+                [formControlName]="i"
+                class="flex-1"
+                placeholder="Step"
+              />
+              <button
+                pButton
+                icon="pi pi-times"
+                type="button"
+                severity="danger"
+                (click)="removeInstruction(i)"
+              ></button>
+            </div>
             <button
               pButton
-              icon="pi pi-times"
+              label="Add Step"
+              icon="pi pi-plus"
               type="button"
-              severity="danger"
-              (click)="removeInstruction(i)"
+              (click)="addInstruction()"
             ></button>
           </div>
-          <button
-            pButton
-            label="Add Step"
-            icon="pi pi-plus"
-            type="button"
-            (click)="addInstruction()"
-          ></button>
-        </div>
 
-        <!-- Save -->
-        <div class="mt-6 flex gap-4">
-          <p-confirmdialog />
-          <button
-            pButton
-            type="button"
-            label="Save Changes"
-            (click)="save($event)"
-          ></button>
-          <button
-            pButton
-            type="button"
-            label="Cancel Changes"
-            severity="danger"
-            (click)="cancel($event)"
-          ></button>
+          <!-- Save -->
+          <div class="mt-6 flex gap-4">
+            <p-confirmdialog />
+            <button
+              pButton
+              type="button"
+              label="Save Changes"
+              (click)="save($event)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Cancel Changes"
+              severity="danger"
+              (click)="cancel($event)"
+            ></button>
+          </div>
         </div>
-      </div>
-    </form>
-
+      </form>
+    </ng-container>
     <!-- Pop up notifications -->
     <p-toast position="bottom-right" />
   </div>

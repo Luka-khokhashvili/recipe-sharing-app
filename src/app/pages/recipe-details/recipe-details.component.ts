@@ -20,6 +20,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { EditImage } from '../../components/recipe-details/edit-image/edit-image';
 
 @Component({
   selector: 'app-recipe-details',
@@ -35,6 +36,7 @@ import { InputTextModule } from 'primeng/inputtext';
     RatingModule,
     ConfirmDialog,
     ToastModule,
+    EditImage,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './recipe-details.component.html',
@@ -261,15 +263,12 @@ export class RecipeDetailsComponent {
     });
   }
 
-  onImageSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.recipeForm.get('image')?.setValue(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  onImageUpload(base64Image: string): void {
+    this.recipeForm.get('image')?.setValue(base64Image);
+  }
+
+  removeImage(): void {
+    this.recipeForm.get('image')?.setValue(null);
   }
 
   saveChanges() {

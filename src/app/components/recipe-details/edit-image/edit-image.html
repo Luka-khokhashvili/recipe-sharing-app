@@ -1,0 +1,46 @@
+<div class="flex flex-col items-center gap-4 w-full">
+  <!-- Image Preview -->
+  <div
+    class="w-full h-64 bg-zinc-800 border border-zinc-700 rounded-lg flex items-center justify-center overflow-hidden relative"
+  >
+    <img
+      *ngIf="previewUrl"
+      [src]="previewUrl"
+      alt="Recipe image"
+      class="w-full h-full object-cover"
+    />
+
+    <div *ngIf="!previewUrl" class="text-gray-500 flex flex-col items-center">
+      <i class="pi pi-image text-4xl mb-2 text-emerald-400"></i>
+      <p>No image uploaded</p>
+    </div>
+
+    <button
+      *ngIf="previewUrl"
+      (click)="removeImage()"
+      type="button"
+      class="absolute top-2 right-2 bg-red-500 hover:bg-red-400 text-white px-2 py-1 rounded-lg flex items-center gap-1"
+    >
+      <i class="pi pi-trash"></i> Remove
+    </button>
+  </div>
+
+  <!-- Upload Button -->
+  <div class="relative">
+    <input
+      type="file"
+      accept="image/*"
+      class="hidden"
+      #fileInput
+      (change)="onFileSelected($event)"
+    />
+    <button
+      type="button"
+      (click)="fileInput.click()"
+      class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded-lg flex items-center gap-2"
+    >
+      <i class="pi pi-upload"></i>
+      <span>Change Image</span>
+    </button>
+  </div>
+</div>
