@@ -1,0 +1,124 @@
+<div *ngIf="!editMode" class="flex flex-col md:w-full xl:w-[49vw]">
+  <div class="grid md:grid-cols-2 xl:flex xl:flex-col gap-6">
+    <div class="block xl:hidden">
+      <img
+        [src]="recipe?.image"
+        [alt]="recipe?.name"
+        class="w-full rounded-xl shadow-md object-cover max-h-[400px]"
+      />
+    </div>
+    <div class="flex flex-col justify-between">
+      <div>
+        <div class="flex w-full justify-between p-2">
+          <h1 class="text-2xl font-bold text-emerald-500 mb-2">
+            {{ recipe?.name }}
+          </h1>
+        </div>
+        <p class="text-gray-300 mb-4">{{ recipe?.description }}</p>
+        <div class="flex items-center gap-2 mb-4">
+          <p-rating [readonly]="true" *ngIf="recipe"></p-rating>
+          <span class="text-sm text-gray-400">
+            ({{ recipe?.reviewCount }} reviews)
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <p-tag
+            *ngFor="let tag of recipe?.tags"
+            [value]="tag"
+            severity="success"
+          ></p-tag>
+        </div>
+      </div>
+      <div class="flex justify-between items-end gap-4 mt-6">
+        <p-button
+          [label]="`${recipe?.isFavorited ? 'Favorited' : 'Favorite'}`"
+          [icon]="`pi ${recipe?.isFavorited ? 'pi-star-fill' : 'pi-star'}`"
+          (onClick)="onFavorite()"
+        ></p-button>
+        <div class="flex w-full justify-end gap-4">
+          <div class="group relative inline-block transition-all">
+            <button
+              pButton
+              class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
+              (click)="onToggleEdit()"
+            >
+              <i
+                class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
+              ></i>
+              <span
+                class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
+              >
+                Edit
+              </span>
+            </button>
+          </div>
+          <div class="group relative inline-block transition-all">
+            <p-confirmdialog />
+
+            <button
+              pButton
+              severity="danger"
+              class="flex items-center text-white rounded-lg px-3 py-2 overflow-hidden transition-all duration-300 ease-in-out group-hover:px-5 group-hover:bg-emerald-700"
+              (click)="onDelete($event)"
+            >
+              <i
+                class="pi pi-pencil text-lg transition-transform duration-300 group-hover:translate-x-1"
+              ></i>
+              <span
+                class="opacity-0 max-w-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[60px]"
+              >
+                Delete
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div>
+      <h4 class="font-semibold">
+        <span class="pi pi-clock"></span>
+        Prep Time
+      </h4>
+      <p>{{ recipe?.prepTimeMinutes }} min</p>
+    </div>
+    <div>
+      <h4 class="font-semibold">
+        <span class="pi pi-chevron-circle-left"></span>
+        Cook Time
+      </h4>
+      <p>{{ recipe?.cookTimeMinutes }} min</p>
+    </div>
+    <div>
+      <h4 class="font-semibold"><span class="pi pi-users"></span> Servings</h4>
+      <p>{{ recipe?.servings }}</p>
+    </div>
+    <div>
+      <h4 class="font-semibold"><span class="pi pi-heart"></span> Calories</h4>
+      <p>{{ recipe?.caloriesPerServing }} kcal</p>
+    </div>
+  </div>
+  <p-divider></p-divider>
+  <div class="mb-6 xl:mt-6">
+    <h3 class="text-xl font-bold text-emerald-400 mb-2">
+      <span class="pi pi-shopping-cart"></span> Ingredients
+    </h3>
+    <ul class="list-disc pl-5 space-y-1 text-gray-200">
+      <li *ngFor="let ingredient of recipe?.ingredients">
+        {{ ingredient }}
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h3 class="text-xl font-bold text-emerald-400 mb-2">
+      <span class="pi pi-list-check"></span> Instructions
+    </h3>
+    <ol class="list-decimal pl-5 space-y-2 text-gray-200">
+      <li *ngFor="let step of recipe?.instructions">{{ step }}</li>
+    </ol>
+  </div>
+</div>
