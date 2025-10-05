@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ButtonDirective } from 'primeng/button';
 
 @Component({
   selector: 'app-edit-image',
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonDirective],
   templateUrl: './edit-image.html',
   styleUrl: './edit-image.css',
 })

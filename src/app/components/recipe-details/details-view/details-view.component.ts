@@ -25,7 +25,7 @@ export class DetailsViewComponent {
   @Input() recipe!: Recipe | undefined;
   @Output() favoriteToggled = new EventEmitter<void>();
   @Output() editRequested = new EventEmitter<void>();
-  @Output() deleteRequested = new EventEmitter<PointerEvent>();
+  @Output() deleteRequested = new EventEmitter<MouseEvent>();
 
   onFavorite() {
     this.favoriteToggled.emit();
@@ -33,7 +33,7 @@ export class DetailsViewComponent {
   onToggleEdit() {
     this.editRequested.emit();
   }
-  onDelete($event: PointerEvent) {
+  onDelete($event: MouseEvent) {
     this.deleteRequested.emit($event);
   }
 }
