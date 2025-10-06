@@ -1,0 +1,11 @@
+<div class="flex items-center gap-3">
+  <p-togglebutton
+    onLabel="Favorited"
+    offLabel="All Recipes"
+    [onIcon]="onIcon"
+    offIcon="pi pi-star"
+    [(ngModel)]="showFavoritesOnly"
+    (onChange)="toggleFavorites()"
+    class="text-emerald-400"
+  ></p-togglebutton>
+</div>

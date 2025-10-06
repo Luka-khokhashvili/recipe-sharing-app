@@ -1,6 +1,7 @@
 <section class="flex flex-col items-center w-full mt-20">
-  <div class="flex justify-end w-full">
-    <app-search (searchTermChanged)="filterRecipes($event)"></app-search>
+  <div class="flex justify-end w-full gap-4">
+    <app-filter (favoriteFilterChange)="onFavoriteFilter($event)" />
+    <app-search (searchTermChanged)="onSearch($event)" />
   </div>
 
   <app-recipe-list
